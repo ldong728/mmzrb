@@ -1,0 +1,61 @@
+
+#main-picture-box{
+    width: 100%;
+    text-align: center;
+}
+#main_img{
+    width:60%;
+}
+#main-title{
+    margin-top: 4%;
+
+}
+#price-box{
+    position: relative;
+    color:#999999;
+    font-size: medium;
+}
+#main-made-in{
+    padding-bottom: 10px;
+    padding-top: 0px;
+    margin-top: 00px;
+    margin-bottom: 20px;
+}
+span#price{
+    color: red;
+    font-size: larger;
+    padding-left: 15px;
+
+}
+span#sale{
+    font-size: small;
+    text-decoration:line-through;
+    margin-left: 20px;
+}
+div.detail-box{
+    position:relative;
+    width:100%;
+    min-height: 70px;
+}
+div.detail-name{
+    width: 25%;
+    position: absolute;
+    left:5%;
+    font-weight: 600;
+}
+div.detail-select-box{
+    position: absolute;
+    padding-top: 1%;
+    min-width:30%;
+    max-width: 65%;
+    left: 30%;
+}
+select#category-select{
+    /*position: absolute;*/
+    width:60%;
+    left:40%;
+}
+div.inf-foot{
+    text-align: center;
+
+}

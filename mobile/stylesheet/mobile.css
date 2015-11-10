@@ -1,0 +1,21 @@
+body{
+    background-color: #F4F3EF;
+    font-family: "LiSu";
+
+
+}
+.block{
+    padding: 2%;
+    border-style: solid;
+    margin: 2%;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border-color:#dcdcdc;
+    border-width: thin;
+    box-shadow:2px 3px 3px #dcdcdc;
+    min-height: 40px;
+}
+.ui-icon-cart{
+    background:url('images/buy.png') no-repeat 0px 0px;
+}
+

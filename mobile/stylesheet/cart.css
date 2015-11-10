@@ -1,0 +1,14 @@
+span#totalPrice{
+    width: 70%;
+
+
+}
+#clear{
+    position: relative;
+    left: 65%;
+}
+#price-block{
+    position:relative;
+    left:10%;
+    font-weight: 600;
+}
