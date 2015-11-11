@@ -8,15 +8,8 @@
     <link rel="stylesheet"href="stylesheet/index.css"/>
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/jquery.mobile-1.3.2.min.js"></script>
-
-
-
-
-
 </head>
 <body>
-
-
 <div data-role="page" id="mainPage">
     <div data-role="header"data-position="fixed"data-theme="b">
         <a href="#" data-role="button" data-icon="home">首页</a>

@@ -58,6 +58,7 @@
                 <a href="#" data-role="button" data-inline="true"data-icon="minus"class="number-button"id="minus"data-iconpos="notext"></a>
                 <span id="number"><?php echo $number ?></span>
                 <a href="#" data-role="button" data-inline="true"data-icon="plus"class="number-button"id="plus"data-iconpos="notext"></a>
+                <a href="#" data-role="button"data-inline="true" data-icon="cart"id="add-to-cart">添加到购物车</a>
             </div>
         </div>
     </div>
@@ -68,9 +69,9 @@
     </div>
     <div data-role="footer"data-position="fixed"data-theme="b"class="inf-foot">
         <div data-role="controlgroup" data-type="horizontal">
-        <a href="#" data-role="button" data-icon="check">去结算</a>
-            <a href="#" data-role="button" data-icon="cart"id="add-to-cart">添加到购物车</a>
-            <a data-ajax="false" href="controller.php?getCart=1" data-role="button"style="float: right">我的购物车</a>
+<!--        <a href="#" data-role="button" data-icon="check">去结算</a>-->
+            <a href="#" data-role="button" id="add-to-cart"data-icon="check">添加到购物车</a>
+            <a data-ajax="false" href="controller.php?getCart=1" data-role="button"data-icon="cart">我的购物车</a>
             </div>
 
     </div>
@@ -82,6 +83,7 @@
             var realPrice=<?php echo (isset($default['price'])? $default['price'] : $default['sale'])?>;//保存在js中的价格
             var number=parseInt($('#number').text());
             $(document).on('change','#category-select',function(){
+                d_id=$('#category-select option:selected').val();
                 $.post('ajax.php',{getdetailprice:1,d_id:$('#category-select option:selected').val()},function(data){
                     var inf=eval('('+data+')');
                     $('#price').empty();
@@ -128,6 +130,10 @@
 <div data-role="dialog" id="add-done">...</div>
 
 <div data-role="page"id="infpage">
+    <div data-role="header"data-theme="b">
+        <a data-rel="back"data-icon="arrow-l"data-iconpos="notext"></a>
+        <h1>货品介绍</h1>
+    </div>
     <div data-role="content" class="block">
         <?php echo $inf['inf']?>
 

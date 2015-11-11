@@ -28,6 +28,18 @@ if(isset($_SESSION['customerId'])){
     if(isset($_POST['deleteCart'])){
         pdoDelete('cart_tbl',array('c_id'=>$_SESSION['customerId'],'d_id'=>$_POST['d_id']));
     }
+    if(isset($_POST['addAddr'])){
+
+        $numbers=pdoUpdate('address_tbl',array('dft_a'=>0),array('c_id'=>$_SESSION['customerId']));
+        if($numbers>9){
+            pdoDelete('address_tbl',array('c_id'=>$_SESSION['customerId']),' limit 1');
+        }
+        $addrId=pdoInsert('address_tbl',array('c_id'=>$_SESSION['customerId'],'province'=>$_POST['province'],'city'=>$_POST['city'],
+        'area'=>$_POST['area'],'address'=>$_POST['address'],'name'=>$_POST['name'],'phone'=>$_POST['phone'],'dft_a'=>1));
+        echo $addrId;
+        exit;
+
+    }
 
 }
 

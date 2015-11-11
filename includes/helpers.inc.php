@@ -1,5 +1,6 @@
 <?php
 define('DEBUG',true);
+
 function html($text)
 {
 	return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -72,4 +73,8 @@ function getRandStr($length = 16)
         $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
     }
     return $str;
+}
+function getOrderStu($index){
+    $list=array('待付款','已付款','已发货','已完成','异常','退款中','退货中','已取消','已过期');
+    return $list[$index];
 }

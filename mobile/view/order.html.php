@@ -1,4 +1,4 @@
-<head xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>麻麻去日本</title>
     <link rel="stylesheet" href="stylesheet/jquery.mobile-1.3.2.min.css">
@@ -39,12 +39,13 @@
         </div>
     </div>
     <div data-role="content"class="block"id="conform">
-        <a href="#" data-role="button">生成订单</a>
+        <a href="controller.php?orderConfirm=1&addrId=<?php echo $addrrow['id']?>" data-role="button">生成订单</a>
     </div>
 </div>
 
-<div data-role="page"id="addr">
+<div data-role="page"id="addr-add">
     <div data-role="header"data-theme="b">
+        <a data-rel="back"data-icon="arrow-l"data-iconpos="notext"></a>
         <h1>添加地址</h1>
     </div>
     <div data-role="content"class="block">
@@ -60,6 +61,25 @@
 
         <button id="submit">提交新地址</button>
     </div>
+</div>
+<div data-role="page"id="addr-alt">
+    <div data-role="header"data-theme="b">
+        <a data-rel="back"data-icon="arrow-l"data-iconpos="notext"></a>
+        <h1>修改地址</h1>
+    </div>
+    <div data-role="content"class="block">
+        <form action="controller.php?altAddr=1"method="post">
+        <label for="address">地址:</label>
+        <textarea name="address"id="address"/><?php echo $addrrow['address']?></textarea>
+        <label for="neme">收件人：</label>
+        <input type="text"name="name"id="name"value="<?php echo $addrrow['name']?>"/>
+        <label for="phone">联系电话：</label>
+        <input type="text"name="phone"id="phone"value="<?php echo $addrrow['phone']?>"/>
+            <input type="hidden"name="id"value="<?php echo $addrrow['id']?>"/>
+        <button id="submit">修改</button>
+        </form>
+    </div>
+
 </div>
 
 
@@ -84,32 +104,42 @@
 
         $(document).on('change','select',function(){
             var value=$(this).find('option:selected').text();
-           switch($(this).attr('id')){
-               case 'pro':{
-                   p=value;
-                   break;
-               }
-               case 'city':{
-                   c=value;
-                   break;
-               }
-               case 'area':{
-                   a=value;
-                   break;
-               }
-               default :{
-                   break;
-               }
-           }
+            switch($(this).attr('id')){
+                case 'pro':{
+                    p=value;
+                    break;
+                }
+                case 'city':{
+                    c=value;
+                    break;
+                }
+                case 'area':{
+                    a=value;
+                    break;
+                }
+                default :{
+                    break;
+                }
+            }
         });
         $(document).on('change','#name',function(){
-           name=$(this).val();
+            name=$(this).val();
         });
         $(document).on('change','#phone',function(){
-
+            phone=$(this).val();
+        });
+        $(document).on('change','#address',function(){
+            addr=$(this).val();
         });
 
         $(document).on('tap','#submit',function(){
+            if(null!=addr&null!=name&null!=phone){
+                $.post('ajax.php',{addAddr:1,province:p,city:c,area:a,address:addr,name:name,phone:phone},function(data){
+                    window.location.href='controller.php?settleAccounts=1';
+                });
+
+            }
+
 
         });
 

@@ -143,8 +143,8 @@ function pdoUpdate($tableName,array $value,array $where,$str=''){
 //    echo $sql;
 //    exit;
     try {
-        $GLOBALS['pdo']->exec($sql);
-        return $GLOBALS['pdo']->lastInsertId();
+        $rows=$GLOBALS['pdo']->exec($sql);
+        return $rows;
 
     }catch (PDOException $e) {
         $error = 'Unable to insert to the database server.' . $e->getMessage();
@@ -241,6 +241,30 @@ function outerJoinQuery($joinType,$fields,$tables,$joinField,$where,$group){
         $error = 'Unable to outerJoinQuery.' . $e->getMessage();
         include 'error.html.php';
         exit();
+    }
+
+}
+function pdoBatchInsert($tableName,array $value,$str=''){
+    $sql='INSERT INTO '.$tableName.' SET ';
+    $j = 0;
+    $valueCount=count($value[0]);
+    foreach ($value[0] as $k => $v) {
+        $sql = $sql . $k . '=' . ':' . $k ;
+        if ($j < $valueCount - 1) $sql = $sql . ',';
+        $j++;
+    }
+    if($str=='ignore'){
+        $sql=preg_replace('/INTO/',$str,$sql);
+    }else{
+        $sql=$sql.$str;
+    }
+    mylog('BatchInsert:'.$sql);
+    $p=$GLOBALS['pdo']->prepare($sql);
+    foreach ($value as $data) {
+        foreach ($data as $k=>$v) {
+            $p->bindValue($k,$v);
+        }
+        $p->execute();
     }
 
 
