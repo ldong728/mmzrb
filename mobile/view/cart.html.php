@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>麻麻去日本</title>
-    <link rel="stylesheet" href="stylesheet/jquery.mobile-1.3.2.min.css">
+    <link rel="stylesheet" href="stylesheet/my-jm.min.css">
     <link rel="stylesheet" href="stylesheet/mobile.css"/>
     <link rel="stylesheet" href="stylesheet/cart.css"/>
     <script src="../js/jquery-1.8.3.min.js"></script>

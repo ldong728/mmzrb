@@ -1,8 +1,8 @@
 <?php
 
-$g_id=(isset($GLOBALS['g_id'])? $GLOBALS['g_id'] : -1);
-$sc_id=(isset($GLOBALS['sc_id'])? $GLOBALS['sc_id'] : -1);
-$m_i=(isset($GLOBALS['made_in'])? $GLOBALS['made_in']:-1);
+$g_id=(isset($_GET['g_id'])? $_GET['g_id'] : -1);
+$sc_id=(isset($_GET['sc_id'])? $_GET['sc_id'] : -1);
+$m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
 
 ?>
 

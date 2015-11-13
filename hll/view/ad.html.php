@@ -17,7 +17,7 @@
                     if(value['on_ad']%2!=0){
                         checked='checked=true';
                     }
-                    $('#ad_tbl').append('<tr><td>' + value['name'] + '</td><td>'
+                    $('#ad_tbl').append('<tr><td><a href=index.php?goods-config=1&g_id='+value['id']+'>' + value['name'] + '</a></td><td>'
                     +'<input type="checkbox"class="adSwitch"id="'+value['id']+'"'+checked+'/>');
                 });
             });

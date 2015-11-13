@@ -57,7 +57,6 @@ function pdoQuery($tableName, $fields, $where, $append)
     mylog('sql:'.$sql);
     try {
         $query = $GLOBALS['pdo']->query($sql);
-
         return $query;
     }catch (PDOException $e) {
         $error = 'Unable to PDOquery to the database server.' . $e->getMessage();

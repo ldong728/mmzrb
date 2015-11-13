@@ -13,7 +13,7 @@
                 $('#promotions_tbl').append('<tr><td>品名</td><td>规格名</td><td>售价</td><td>操作</td></tr>');
                 var list = eval('(' + data + ')');
                 $.each(list, function (id, value) {
-                    $('#promotions_tbl').append('<tr><td>' + value['name'] + '</td><td>'
+                    $('#promotions_tbl').append('<tr><td><a href=index.php?goods-config=1&g_id='+value['g_id']+'>' + value['name'] + '</a></td><td>'
                     + value['category'] + '</td><td>'
                     + value['sale'] + '</td><td>'
                     +'<a href="consle.php?start_promotions=1&g_id='+value['g_id']+'&d_id='+value['d_id']+'">进行促销</a></td></tr>');
@@ -50,7 +50,7 @@
             var list = eval('(' + data + ')');
             $.each(list,function(id,value){
                 $('#on_promotions').append(
-                    '<tr><td>' + value['name'] + '</td><td>' + value['category'] + '</td><td>'+value['sale']+'</td><td>'
+                    '<tr><td><a href=index.php?goods-config=1&g_id='+value['id']+'>' + value['name'] + '</a></td><td>' + value['category'] + '</td><td>'+value['sale']+'</td><td>'
                     +'<input class="price"id="'+value['id']+'"value="' + value['price'] + '"></td><td>'
                     +'<input class="start_time"id="'+value['id']+'" type="datetime-local"value="'+value['start_time']+'"/></td><td>'
                     +'<input class="end_time"id="'+value['id']+'" type="datetime-local"value="'+value['end_time']+'"/></td><td>'

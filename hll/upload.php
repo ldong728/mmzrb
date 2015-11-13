@@ -50,7 +50,8 @@ if (isset($_POST['g_id']) && $_POST['g_id'] != '-1') {
    $inf = '请选择商品';
 }
 $g_id=$_POST['g_id'];
-printView('hll/view/goods_edit.html.php');
+//printView('hll/view/goods_edit.html.php');
+header('location:index.php?goods-config=1&g_id='.$g_id);
 exit;
 
 ?>

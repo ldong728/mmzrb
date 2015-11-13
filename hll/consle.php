@@ -23,7 +23,8 @@ if(isset($_POST['insert'])){
         }
         $sc_id=$_POST['sc_id'];
         $made_in=$_POST['made_in'];
-        printView('hll/view/goods_edit.html.php');
+//        printView('hll/view/goods_edit.html.php');
+        header('location:index.php?goods-config=1&g_id='.$g_id.'&sc_id='.$sc_id.'&made_in='.$made_in);
         exit;
     }
     exit;

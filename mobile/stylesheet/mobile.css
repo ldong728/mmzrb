@@ -1,10 +1,16 @@
 body{
+
     background-color: #F4F3EF;
-    font-family: "LiSu";
+    font-family: lisu;
 
 
 }
+div.wrap{
+    min-width: 320px;
+    max-width: 640px;
+}
 .block{
+    font-family: lisu;
     padding: 2%;
     border-style: solid;
     margin: 2%;
@@ -14,8 +20,15 @@ body{
     border-width: thin;
     box-shadow:2px 3px 3px #dcdcdc;
     min-height: 40px;
+    clear: both;
 }
+
 .ui-icon-cart{
     background:url('images/buy.png') no-repeat 0px 0px;
 }
+
+a:link{
+    color:#dcdcdc;
+}
+
 

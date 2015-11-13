@@ -80,6 +80,19 @@ if(isset($_SESSION['customerId'])){
 
 
 //以下功能不需登录，不需判断$_SESSION['customerId']
+if(isset($_GET['getList'])){
+    $end='';
+    $where=null;
+    if(isset($_GET['father_id']))$where['father_id']=$_GET['father_id'];
+    if(isset($_GET['sc_id']))$where['sc_id']=$_GET['sc_id'];
+    if(isset($_GET['made_in']))$where['made_in']=$_GET['made_in'];
+    if(isset($_GET['name'])){
+        $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"');
+    }
+    $query=pdoQuery('temp_view',null,$where,$end);
+    include 'view/list.html.php';
+
+}
 if(isset($_GET['goodsdetail'])){
     $query=pdoQuery('user_g_inf_view',null,array('g_id'=>$_GET['g_id']),' limit 1');
     $inf=$query->fetch();
@@ -115,7 +128,6 @@ if(isset($_GET['getCart'])){
     }
     exit;
 }
-
 function getCartDetail($customerId){
     $totalPrice=0;
     $totalSave=0;

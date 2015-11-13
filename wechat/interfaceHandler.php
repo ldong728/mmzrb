@@ -15,14 +15,14 @@ class interfaceHandler {
     public $currentToken='';
     public $gettedTime=0;
     public $expiresIn=7200;
-    public $weixinId='';
+//    public $weixinId='';
     public function __construct($id){
         $this->weixinId=$id;
         $this->reflashAccessToken();
     }
     public function reflashAccessToken(){
         if($this->currentToken==''||$this->gettedTime==0) {
-            $tokenFileData = file_get_contents($GLOBALS['mypath'] . '/tokens/'.$this->weixinId.'.token');
+            $tokenFileData = file_get_contents($GLOBALS['mypath'] . '/tokens/token.json');
             $token = json_decode($tokenFileData,true);
             $this->currentToken=$token['access_token'];
             $this->gettedTime=$token['gettedTime'];
@@ -42,9 +42,9 @@ class interfaceHandler {
         $this->gettedTime=$geted['gettedTime'];
         $this->expiresIn=$geted['expires_in'];
         $reJson=json_encode($geted);
-        file_put_contents($GLOBALS['mypath'] . '/tokens/'.$this->weixinId.'.token',$reJson);
-        mylog($reJson);
-        mylog($this->weixinId.': getTokenOnLine');
+        file_put_contents($GLOBALS['mypath'] . '/tokens/token.json',$reJson);
+//        mylog($reJson);
+//        mylog($this->weixinId.': getTokenOnLine');
     }
     public function sendPost($url, $request_data) {
         $url=$this->replaceAccessToken($url);
