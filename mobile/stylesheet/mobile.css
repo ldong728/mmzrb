@@ -1,13 +1,153 @@
-body{
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    margin: 0;
+    padding: 0;
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, a, span, label, em, strong, b, i, del {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font: 12px/16px microsoft yahei, Verdana, Arial;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 12px;
+    line-height: 16px;
+    font-family: 'microsoft yahei', Verdana, Arial;
+}
+ul, dl {
+    list-style: none;
+    list-style-type: none;
+    list-style-position: initial;
+    list-style-image: initial;
+}
+body {
+    min-width: 320px;
+    background-color: #f5f3f1;
+}
+.header {
+    min-width: 320px;
+    height: 50px;
+    /*background-color: #0587f6;*/
+    position: relative;
+    z-index: 15;
+}
+.header .hd_tit{color:#fff; font-size:16px; line-height:50px; margin-left:12%; margin-right:90px; text-align:left;}
+/*顶部搜索框*/
+.header .hd_input{border:none; background-color:#fff; color:#666; height:34px; width:100%; padding:0 12px; line-height:24px; font-size:14px; border-radius:16px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; outline:none; font-family:microsoft yahei;}
+.header .hd_input::-moz-placeholder{color:#878787;}
+.header .hd_input::-webkit-input-placeholder{color:#878787;}
+.header .hd_input:-ms-input-placeholder{color:#878787;}
+.header .head_right{height:30px; width:68px; position:absolute; right:3%; top:10px;}
+.head_nav{height:60px; background-color:#fff; overflow:hidden; box-shadow:0 2px 3px #dcdcdc; display:none;}
+.head_nav > a{width:25%; height:100%; text-align:center; line-height:90px; background-size:25px; background-position:center 10px; background-repeat:no-repeat; color:#999; display:block; float:left;}
+.head_nav .hn_index{background-image:url(images/icon_home.png);}
+.head_nav .hn_sort{background-image:url(images/icon_sort.png);}
+.head_nav .hn_cart{background-image:url(images/icon_cart.png);}
+.head_nav .hn_memb{background-image:url(images/icon_member.png);}
+header .back {
+    height: 27px;
+    width: 27px;
+    position: absolute;
+    left: 3%;
+    top: 12px;
+    background: url(images/header.png) no-repeat;
+    background-size: 150px 25px;
+    background-position: -75px 1px;
+}
+header {
+    width: 100%;
+    height: 50px;
+    background-color: deeppink;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 13;
+}
 
-    background-color: #F4F3EF;
-    font-family: lisu;
 
-
+.headerContainer {
+    width: 100%;
+    height: 34px;
+    padding: 8px 0;
+    position: relative;
+    z-index: 11;
+}
+.logo {
+    position: absolute;
+    z-index: 2;
+    height: 25px;
+    width: 50px;
+    background: url(images/logo.png) no-repeat;
+    background-size: 50px auto;
+    background-position: center;
+    top: 13px;
+    left: 0;
+    margin: 0 8px;
+}
+.searchBox {
+    margin-left: 66px;
+    margin-right: 42px;
+    height: 34px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+.daohang {
+    position: absolute;
+    top: 12px;
+    right: 3px;
+    display: block;
+    height: 30px;
+    width: 30px;
+    background: url(images/header.png) no-repeat;
+    background-size: 150px 25px;
+    background-position: -123px 3px;
+    float: left;
+    margin-left: 8px;
 }
 div.wrap{
     min-width: 320px;
     max-width: 640px;
+    margin: 0 auto;
+    background-color: #f5f3f1;
+    font-family: microsoft yahei;
+    color: #313131;
+}
+div.floor {
+    overflow: hidden;
+    margin-top: 10px;
+    border: 1px solid #dcdcdc;
+}
+.main_input {
+    border: none;
+    background-color: #fff;
+    color: #666;
+    height: 34px;
+    width: 100%;
+    padding: 0 12px;
+    line-height: 24px;
+    font-size: 14px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    outline: none;
+    font-family: microsoft yahei;
+}
+.search_btn {
+    background: url(images/header.png) no-repeat;
+    background-size: 150px 25px;
+    background-position: 4px 4px;
+    height: 34px;
+    width: 34px;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    border: none;
+    z-index: 2;
 }
 .block{
     font-family: lisu;

@@ -89,7 +89,7 @@ if(isset($_GET['getList'])){
     if(isset($_GET['name'])){
         $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"');
     }
-    $query=pdoQuery('temp_view',null,$where,$end);
+    $query=pdoQuery('user_g_inf_view',null,$where,$end);
     include 'view/list.html.php';
 
 }
@@ -119,7 +119,12 @@ if(isset($_GET['goodsdetail'])){
 }
 if(isset($_GET['getCart'])){
     if(isset($_SESSION['customerId'])){
-        $cartlist=pdoQuery('user_cart_view',null,array('c_id'=>$_SESSION['customerId']),null);
+        $query=pdoQuery('user_cart_view',null,array('c_id'=>$_SESSION['customerId']),null);
+        $cartlist=array();
+        foreach ($query as $row) {
+            $cartlist[]=$row;
+        }
+
         include 'view/cart.html.php';
 
     }else{
@@ -127,6 +132,20 @@ if(isset($_GET['getCart'])){
 
     }
     exit;
+}
+if(isset($_GET['getSort'])){
+
+    $query=pdoQuery('category_view',null,null,' order by father_id asc');
+    foreach ($query as $row) {
+        $catList[$row['father_id']][]=$row;
+    }
+
+//    $sub=pdoQuery('sub_category_tbl')
+    include 'view/sort.html.php';
+    exit;
+}
+if(isset($_GET['customerInf'])){
+
 }
 function getCartDetail($customerId){
     $totalPrice=0;

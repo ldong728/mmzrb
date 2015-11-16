@@ -18,8 +18,16 @@ if(isset($_GET['c_id'])){
 }
 
 
-$categoryQuery=pdoQuery('category_tbl',array('id','name'),null,'');
-$promotionQuery=pdoQuery('(select * from user_pro_view order by price asc) p',null,null,' group by g_id limit 8');
+$categoryQuery=pdoQuery('category_tbl',array('id','name'),null,' order by id asc limit 5');
+$promotionQuery=pdoQuery('(select * from user_pro_view order by price asc) p',null,null,' group by g_id order by father_id limit 8');
+foreach ($promotionQuery as $row) {
+    if(count($row['father_id'])>9){
+        continue;
+    }else{
+        $proList[$row['father_id']][]=$row;
+    }
+}
+
 $adQuery=pdoQuery('(select * from user_ad_view order by sale asc) p',null,null,' group by g_id limit 10');
 //$random=getRandStr(5);
 include 'view/index.html.php';
