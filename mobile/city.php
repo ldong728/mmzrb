@@ -12,6 +12,12 @@
 // +----------------------------------------------------------------------
 // | Update : 2012-04-19 
 // +----------------------------------------------------------------------
+$mypath = $_SERVER['DOCUMENT_ROOT'] . '/mmzrb';   //用于直接部署
+include_once $mypath . '/includes/magicquotes.inc.php';
+include_once $mypath . '/includes/db.inc.php';
+include_once $mypath . '/includes/helpers.inc.php';
+header("Content-Type:text/html; charset=utf-8");
+session_start();
 	
 	$a = isset($_GET['a'])?$_GET['a']:'';
 	if(in_array($a,array('province','city','area'))){
@@ -43,6 +49,7 @@
 		if(file_exists($datafile)){
 			$config = include($datafile);
 			$province_id = isset($_GET['pid'])?trim($_GET['pid']):'';
+//            $province_id=1;
 			if($province_id != ''){
 				$citylist = array();
 				if(is_array($config[$province_id]) && !empty($config[$province_id])){
@@ -53,6 +60,7 @@
 						$citylist[] = $city;
 					}				
 				}
+                mylog(json_encode($citylist));
 				echo_json($citylist);			
 			}
 		}		

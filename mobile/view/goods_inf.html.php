@@ -1,5 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="YES" name="apple-touch-fullscreen">
+    <meta content="yes" name="apple-mobile-web-app-capable">
     <title>麻麻去日本</title>
     <link rel="stylesheet" href="stylesheet/mobile.css"/>
     <link rel="stylesheet" href="stylesheet/swiper.3.2.0.min.css"/>
@@ -8,8 +10,7 @@
 <!--    <link rel="stylesheet" href="stylesheet/sort.css"/>-->
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/lazyload.js"></script>
-    <script src="../js/swiper.min.js"></script>
-    <script src="../js/goods-inf.js"></script>
+
 </head>
 <body>
 <div class="wrap">
@@ -29,6 +30,7 @@
                 <
             </nav>
         </div>
+        <script src="../js/swiper.min.js"></script>
         <script src="../js/head.js"></script>
 
     </header>
@@ -45,6 +47,12 @@
                         <?php endforeach?>
                     </ul>
                 </div>
+                <script>
+                    var swiper = new Swiper('#goods-inf-swiper', {
+                        lazyLoading: true
+//                        autoplay:2000
+                    });
+                </script>
                 <div class="pName">
                     <span class="pro_name"><?php echo $inf['name']?></span>
                 </div>
@@ -99,7 +107,7 @@
         </div>
         <div class="fixedMenuBox">
             <div class="buttonSet">
-                <a class="buyBtn">去结算</a>
+                <a class="buyBtn"href="controller.php?settleAccounts=1">去结算</a>
                 <a class="cartBtn"id="add-to-cart">放入购物车</a>
                 <a class="goCart"href="controller.php?getCart=1"></a>
             </div>
@@ -114,6 +122,6 @@
     var realPrice=<?php echo (isset($default['price'])? $default['price'] : $default['sale'])?>;//保存在js中的价格
     var number=parseInt($('#number').val());
 </script>
-
+<script src="../js/goods-inf.js"></script>
 </body>
 

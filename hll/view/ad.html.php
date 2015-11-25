@@ -1,56 +1,45 @@
-<script>
-    $(document).ready(function () {
-//        reflashAd('all');
-        $(".filter").change(function() {
-            $.post('ajax_request.php', {
-                adfilte: 1,
-                made_in: $("#country option:selected").val(),
-                sc_id: $("#sc_id option:selected").val()
-            }, function (data) {
-//                $('#temp').append(data);
-                $('#ad_tbl').empty();
-                $('#ad_tbl').append('<tr><td>品名</td><td>广告中</td></tr>');
-                var list = eval('(' + data + ')');
-
-                $.each(list, function (id, value) {
-                    var checked='';
-                    if(value['on_ad']%2!=0){
-                        checked='checked=true';
-                    }
-                    $('#ad_tbl').append('<tr><td><a href=index.php?goods-config=1&g_id='+value['id']+'>' + value['name'] + '</a></td><td>'
-                    +'<input type="checkbox"class="adSwitch"id="'+value['id']+'"'+checked+'/>');
-                });
-            });
-        });
-        $(document).on('change','.adSwitch',function(){
-            $.post('ajax_request.php',{switch_ad:1,ad_g_id:$(this).attr('id')});
-
-        });
+<?php $adQuery=$GLOBALS['adQuery']?>
 
 
-    });
-</script>
+<table border="1">
+    <tr>
+        <td>位置</td>
+        <td>商品</td>
+        <td>地址</td>
+        <td>图片</td>
+        <td>更新</td>
+    </tr>
+    <?php foreach ($adQuery as $row):?>
+        <form action="upload.php"method="post"enctype="multipart/form-data">
 
-<div>
-    <h3>未促销商品</h3>
+        <tr>
+            <input type="hidden"name="altAd"value="<?php echo $row['id']?>">
+            <input type="hidden"name="adImg"value="../<?php echo $row['img_url']?>">
+            <td><?php echo $row['category']?></td>
+            <td>
+                <select id = "sc_id">
+                    <option value = "0">分类</option>
+                    <?php foreach ($_SESSION['smq'] as $r): ?>
+                        <option value = "<?php echo $r['id'] ?>"><?php  htmlout($r['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select id="g_name" name="g_id"></select>
+            </td>
+            <td></td>
+            <td><img src="../<?php echo $row['img_url']?>" style="width: 100px;height: 100px"> </td>
+            <td><input type="file"name="adPic"><input type="submit"></td>
 
-    <select class="filter" id="sc_id">
-        <option value="0">分类</option>
-        <?php foreach ($_SESSION['smq'] as $r): ?>
-            <option value="<?php echo $r['id'] ?>"><?php htmlout($r['name']) ?></option>
-        <?php endforeach; ?>
-    </select>
+        </tr>
+        </form>
+    <?php endforeach?>
 
-    <select class="filter" id="country">
-        <option value="none">产地</option>
-        <option value="us">美国</option>
-        <option value="de">德国</option>
-        <option value="jp">日本</option>
-    </select>
-
-</div>
-
-<table id="ad_tbl" border="1">
 
 
 </table>
+
+<script>
+    $("#sc_id").change(function(){
+        $("#g_name").load("ajax_request.php",{categoryCheck: $("#sc_id option:selected").val(),
+            country_id: 'none'},$("#g_name").empty())
+    });
+</script>

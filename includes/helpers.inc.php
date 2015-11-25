@@ -1,5 +1,8 @@
 <?php
 define('DEBUG',true);
+//$province=null;
+//$city=null;
+//$area=null;
 
 function html($text)
 {
@@ -35,6 +38,19 @@ function printInf($p){
 
     }
     echo '}';
+}
+function getArrayInf($array){
+    $s='{';
+    foreach ($array as $k=>$v) {
+        $s=$s.$k.': ';
+        if(is_array($v)){
+            $s=$s.getArrayInf($v);
+        }else{
+            $s=$s.$v;
+        }
+    }
+    return $s.'}';
+
 }
 function mylog($str){
     if(DEBUG) {
@@ -74,7 +90,46 @@ function getRandStr($length = 16)
     }
     return $str;
 }
+
+//mmzrb 专用
 function getOrderStu($index){
     $list=array('待付款','已付款','已发货','已完成','异常','退款中','退货中','已取消','已过期');
     return $list[$index];
+}
+function getProvince($pro){
+    $datafile = 'config/province.inc.php';
+    if(file_exists($datafile)){
+        $config = include($datafile);
+        return $config[$pro];
+    }
+}
+
+function getCity($pro,$city){
+    $datafile = 'config/city.inc.php';
+    if(file_exists($datafile)){
+        $config = include($datafile);
+            $province_id=$pro;
+        if($province_id != ''){
+            $citylist = array();
+            if(is_array($config[$province_id]) && !empty($config[$province_id])){
+                $citys = $config[$province_id];
+                return $citys[$city];
+            }
+        }
+    }
+}
+function getArea($pro,$city,$area){
+    $datafile = 'config/area.inc.php';
+    if(file_exists($datafile)){
+        $config = include($datafile);
+        $province_id = $pro;
+        $city_id = $city;
+        if($province_id != '' && $city_id != ''){
+            $arealist = array();
+            if(isset($config[$province_id][$city_id]) && is_array($config[$province_id][$city_id]) && !empty($config[$province_id][$city_id])){
+                $areas = $config[$province_id][$city_id];
+                return $areas[$area];
+            }
+        }
+    }
 }

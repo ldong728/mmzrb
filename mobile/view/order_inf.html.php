@@ -1,29 +1,33 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>麻麻去日本</title>
-    <link rel="stylesheet" href="stylesheet/jquery.mobile-1.3.2.min.css">
     <link rel="stylesheet" href="stylesheet/mobile.css"/>
-    <link rel="stylesheet" href="stylesheet/goods_inf.css"/>
+    <link rel="stylesheet" href="stylesheet/order.css"/>
     <script src="../js/jquery-1.8.3.min.js"></script>
-    <script src="../js/jquery.mobile-1.3.2.min.js"></script>
 </head>
-
 <body>
-
-<div data-role="page">
-    <div data-role="header" data-position="fixed" data-theme="b">
-        <a data-ajax="false" href="index.php" data-role="button" data-icon="home">首页</a>
+<div class="wrap">
+    <header class="header">
+        <a class="back" href="javascript:window.history.go(-1);"></a>
+        <p class="hd_tit">订单确认</p>
+        <a class="daohang"href="#"></a>
+        <nav class="head_nav">
+            <a class="hn_index"href="index.php">首页</a>
+            <a class="hn_sort"href="controller.php?getSort=1">分类查找</a>
+            <a class="hn_cart"href="controller.php?getCart=1">购物车</a>
+            <a class="hn_memb"href="controller.php?customerInf=1">个人中心</a>
+        </nav>
+        <script src="../js/head.js"></script>
+    </header>
+    <div class="orderComfirm">
+    <div>
         <h1>订单信息</h1>
     </div>
-    <div data-role="content" class="block">
+    <div>
         <h5>订单号：<?php echo $orderId?></h5>
         <h6>订单状态：<?php echo getOrderStu($orderStu)?></h6>
-
-
     </div>
-    <div data-role="content"class="block">
-        <button>付款</button>
+    <a class="orderSettle" id="readyToPay"href="#">付款</a>
     </div>
-
 </div>
 </body>

@@ -35,23 +35,21 @@
         <div class="headerContainer">
             <a href="" class="logo"></a>
 
-            <form class="searchBox">
-                <input class="main_input" type="text" placeholder="输入关键字">
-                <input class="search_btn" type="button">
+            <form class="searchBox"action="controller.php?getList=1"method="get">
+                <input class="main_input" type="text" id="key-word"placeholder="输入关键字">
+                <input class="search_btn" id="search-button"type="button">
             </form>
             <a href="controller.php?getSort=1" class="sort"></a>
         </div>
+        <script src="../js/head.js"></script>
     </header>
     <div class="swiper-container mbaner" id="ad-swiper">
         <div class="swiper-wrapper"style="width: 4368px; height: 214.5px">
-            <div class="swiper-slide"><a href="http://www.sohu.com"><img class="swiper-img"
-                                                                         src="../g_img/slide_img/1.jpg"/></a></div>
-            <div class="swiper-slide"><a href="http://www.sohu.com"><img class="swiper-img"
-                                                                         src="../g_img/slide_img/2.jpg"/></a></div>
-            <div class="swiper-slide"><a href="http://www.sohu.com"><img class="swiper-img"
-                                                                         src="../g_img/slide_img/3.jpg"/></a></div>
-            <div class="swiper-slide"><a href="http://www.sohu.com"><img class="swiper-img"
-                                                                         src="../g_img/slide_img/4.jpg"/></a></div>
+            <?php foreach($adList['banner'] as $row):?>
+            <div class="swiper-slide"><a href="<?php echo isset($row['url'])? $row['url']:'controller.php?goodsdetail=1&g_id='.$row['g_id']?>">
+                    <img class="swiper-img swiper-lazy"data-src="../<?php echo $row['img_url']?>"/></a>
+            </div>
+            <?php endforeach?>
         </div>
         <div class="swiper-pagination" id="ad-pagination"></div>
     </div>
@@ -61,7 +59,9 @@
             pagination: '#ad-pagination',
             paginationClickable: true,
             autoplay: 2000,
+            lazyLoading : true,
             loop:true
+
         });
     </script>
     <nav class="main-nav">
@@ -75,7 +75,7 @@
 
             <p class="nav-text">购物车</p>
         </a>
-        <a href="#" class="nav-link">
+        <a href="controller.php?customerInf=1" class="nav-link">
             <i class="cate-icon user"></i>
 
             <p class="nav-text">个人中心</p>
@@ -87,13 +87,13 @@
         </a>
     </nav>
     <div class="floor">
-        <a class="rowleftimg" href=""><img src="../img/place3.jpg"/></a>
-        <a class="rowrightimg"href=""><img src="../img/place3.jpg"/></a>
+        <a class="rowleftimg" href=""><img src="../<?php echo $adList['rowleft'][0]['img_url']?>"/></a>
+        <a class="rowrightimg"href=""><img src="../<?php echo $adList['rowright'][0]['img_url']?>"/></a>
     </div>
     <div class="floor">
-        <a class="leftImg"href=""><img src="../img/place2.jpg"/></a>
-        <a class="rightTopImg"href=""><img src="../img/place3.jpg"/></a>
-        <a class="rightBottmImg"href=""><img src="../img/place3.jpg"/></a>
+        <a class="leftImg"href=""><img src="../<?php echo $adList['left'][0]['img_url']?>"/></a>
+        <a class="rightTopImg"href=""><img src="../<?php echo $adList['top'][0]['img_url']?>"/></a>
+        <a class="rightBottmImg"href=""><img src="../<?php echo $adList['bottom'][0]['img_url']?>"/></a>
     </div>
     <div class="hotsellBox">
         <div class="hsTabBox">

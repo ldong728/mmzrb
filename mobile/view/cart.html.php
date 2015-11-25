@@ -26,14 +26,14 @@
         <div class="myCart">
             <ul class="cartList">
                 <?php foreach($cartlist as $row):?>
-                <li id="<?php echo $row['d_id']?>">
+                <li id="list<?php echo $row['d_id']?>">
                     <dl class="cart_list">
                         <dd>
-                            <a class="imgA"href="#">
+                            <a class="imgA"href="controller.php?goodsdetail=1&g_id=<?php echo $row['g_id']?>&d_id=<?php echo $row['d_id']?>&number=<?php echo $row['number']?>">
                                 <img class="pro_img"src="../<?php echo $row['url']?>"style="width: 48px; height: 48px; border: 1px solid rgb(204, 204, 204); display: block;">
                             </a>
                             <div class="cDetail">
-                                <a class="cName"href="#"><?php echo $row['name']?></a>
+                                <a class="cName"href="controller.php?goodsdetail=1&g_id=<?php echo $row['g_id']?>&d_id=<?php echo $row['d_id']?>&number=<?php echo $row['number']?>"><?php echo $row['name']?></a>
                                 <p>规格：<span class="cl_grey"><?php echo $row['category']?></span></p>
                                 <div class="cCount">
                                     <div class="countBox">
@@ -49,7 +49,7 @@
 
                                 </div>
                             </div>
-                            <a class="cDelete"></a>
+                            <a class="delete"id="<?php echo $row['d_id']?>"></a>
                         </dd>
 
                     </dl>
@@ -64,7 +64,7 @@
                 <div class="settleBox">
                     <p>合计：<span class="total"id="total-price"></span>
                     （未含邮费）</p>
-                    <a class="settleBtn"id="buy-btn">结算</a>
+                    <a class="settleBtn"id="buy-btn"href="controller.php?settleAccounts=1">结算</a>
                 </div>
             </div>
         </div>
@@ -89,7 +89,21 @@
                 flushPrice();
             });
         });
-
+        $(document).on('change','.count',function(){
+            var d_id=$(this).attr('id').slice(6);
+            $.post('ajax.php', {alterCart: 1, d_id: d_id, number: $(this).val},function(){
+                flushPrice();
+            });
+        });
+        $(document).on('click','.cDelete',function(){
+            var d_id=$(this).attr('id');
+            $.post('ajax.php',{deleteCart:1,d_id:d_id},function(data){
+                $('#list'+d_id).fadeOut('slow',function(){
+                    $('#list'+d_id).remove();
+                    flushPrice();
+                });
+            });
+        });
     });
     var flushPrice=function(){
         var price=0;

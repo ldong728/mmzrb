@@ -22,7 +22,6 @@ span#totalPrice{
 .myCart .cart_header .allChoose input{vertical-align:middle;}
 .myCart .cart_header .cl_red{line-height:32px; color:#eb0b30;}
 .myCart .cart_header .keepShopping{background-color:#fff; text-decoration:none; display:inline-block; padding:5px 8px; margin-left:10px; border:1px solid #ccc;}
-.cDelete{padding:6px; float:right; display:inline-block; width:18px; height:18px; background:url(images/icon-del.png) no-repeat; background-size:18px 18px; background-position:center;}
 .cartList{margin-top:5px;}
 .cartList li{margin-bottom:10px;}
 .cartList .cart_hd{height:30px; width:92%; background-color:#f6f6f6; border-top:1px solid #ccc; border-bottom:1px solid #ccc; padding:0 4%; color:#666;}

@@ -11,89 +11,125 @@ include_once $mypath . '/includes/db.inc.php';
 include_once $mypath . '/includes/helpers.inc.php';
 header("Content-Type:text/html; charset=utf-8");
 session_start();
+
 if(isset($_SESSION['customerId'])){
     if(isset($_GET['settleAccounts'])){
         $arr=getCartDetail($_SESSION['customerId']);
         $totalPrice=$arr['totalPrice'];
         $totalSave=$arr['totalSave'];
         $goodsList=$arr['goodsList'];
-
-        $addrQuery=pdoQuery('address_tbl',null,array('c_id'=>$_SESSION['customerId'],'dft_a'=>1),' limit 1');
-        if($addrrow=$addrQuery->fetch()){
-            $addr='<p>'.$addrrow['province'].$addrrow['city'].$addrrow['area'].'</p><p>'
-                .$addrrow['address'].'</p><p>联系人：'
-            .$addrrow['name'].'</p><p>联系电话：'.$addrrow['phone'].'</p>'
-                .'<div data-role="controlgroup" data-type="horizontal">'
-            .'<a href="#addr-alt" data-role="button"id="alter_addr">修改地址</a>'
-                .'<a href="controller.php?changeAddr=1" data-role="button"id="change_addr">更换地址</a>'
-            .'<a href="#addr-add" data-role="button">添加地址</a>'
-            .'</div>';
-        }else{
-            $addrrow=array();
-            $addr='<p>当前没有已保存的收货地址</p>'
-            .'<a href="#addr-add" data-role="button">添加地址</a>';
+        if(0==count($goodsList)){
+            header('location:index.php');
         }
+        if(isset($_GET['addressId'])){
+            $addrQuery=pdoQuery('address_tbl',null,array('id'=>$_GET['addressId']),' limit 1');
+        }else{
+            $addrQuery=pdoQuery('address_tbl',null,array('c_id'=>$_SESSION['customerId'],'dft_a'=>1),' limit 1');
+        }
+
+        if($addrrow=$addrQuery->fetch()){
+           $addr=$addrrow;
+        }else{
+            $addrrow=array('id'=>-1,'name'=>'','phone'=>'','address'=>'点击设置收货地址','province'=>' ',
+            'city'=>' ','area'=>' ');
+            $addr=$addrrow;
+;        }
         include 'view/order.html.php';
         exit;
     }
-    if(isset($_GET['altAddr'])){
-        pdoUpdate('address_tbl',array('address'=>$_POST['address'],'name'=>$_POST['name'],'phone'=>$_POST['phone']),array('id'=>$_POST['id']));
-        header('location:controller.php?settleAccounts=1');
-        exit;
-    }
-    if(isset($_GET['changeAddr'])){
-        if(isset($_GET['addressId'])){
-            pdoUpdate('address_tbl',array('dft_a'=>0),array('c_id'=>$_SESSION['customerId']));
-            pdoUpdate('address_tbl',array('dft_a'=>1),array('id'=>$_GET['addressId']));
-            header('location:controller.php?settleAccounts=1');
+    if(isset($_GET['alterAddress'])){
+        $pro=getProvince($_POST['pro']);
+        $city=getCity($_POST['pro'],$_POST['city']);
+        $area=getArea($_POST['pro'],$_POST['city'],$_POST['area']);
+        $value=array('pro_id'=>$_POST['pro'],'city_id'=>$_POST['city'],'area_id'=>$_POST['area'],
+            'area'=>$_POST['area'],'province'=>$pro,'city'=>$city,'area'=>$area,'address'=>$_POST['address'],'name'=>$_POST['name'],
+            'phone'=>$_POST['phone']);
+        if(-1==$_POST['address_id']){
+            $value['c_id']=$_SESSION['customerId'];
+            $value['dft_a']=0;
+            $addrId=pdoInsert('address_tbl',$value);
+        }else{
+            pdoUpdate('address_tbl',$value,
+                array('id'=>$_POST['address_id']));
         }
-        $addrQuery=pdoQuery('address_tbl',null,array('c_id'=>$_SESSION['customerId'],'dft_a'=>'0'),' limit 10');
+        header('location:controller.php?editAddress=1');
+    }
+    if(isset($_GET['editAddress'])){
+//        mylog('editAddress');
+        $addrQuery=pdoQuery('address_tbl',null,array('c_id'=>$_SESSION['customerId']),' limit 5');
+        $addrlist=array();
+        foreach ($addrQuery as $row) {
+            $addrlist[]=$row;
+        }
+//        mylog('editAddress2');
+//        echo 'what\'s up man';
         include 'view/address.html.php';
         exit;
-
     }
     if(isset($_GET['orderConfirm'])){
-        $orderId='dy'.time().rand(100,999);  //订单号生成，低并发情况下适用
-        pdoInsert('order_tbl',array('id'=>$orderId,'c_id'=>$_SESSION['customerId'],'a_id'=>$_GET['addrId']));
-        $arr=getCartDetail($_SESSION['customerId']);
-        foreach ($arr['goodsList'] as $row) {
-            $readyInsert[]=array(
-              'o_id'=>$orderId,
-                'c_id'=>$_SESSION['customerId'],
-                'd_id'=>$row['d_id'],
-                'number'=>$row['number'],
-                'price'=>$row['price'],
-                'total'=>$row['total']
-            );
+//        include 'view/order_inf.html.php';
+//        exit;
+        if(-1!=$_GET['addrId']) {
+            $orderId = 'dy' . time() . rand(100, 999);  //订单号生成，低并发情况下适用
+            pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId']));
+            $arr = getCartDetail($_SESSION['customerId']);
+            foreach ($arr['goodsList'] as $row) {
+                $readyInsert[] = array(
+                    'o_id' => $orderId,
+                    'c_id' => $_SESSION['customerId'],
+                    'd_id' => $row['d_id'],
+                    'number' => $row['number'],
+                    'price' => $row['price'],
+                    'total' => $row['total']
+                );
+            }
+            if($readyInsert==null){
+                header('location:index.php');
+                exit;
+            }
+            pdoBatchInsert('order_detail_tbl', $readyInsert);
+            pdoDelete('cart_tbl', array('c_id' => $_SESSION['customerId']));
+            $orderStu = 0;
+            include 'view/order_inf.html.php';
+        }else{
+            header('location:controller.php?editAddress=1');
         }
-        pdoBatchInsert('order_detail_tbl',$readyInsert);
-        pdoDelete('cart_tbl',array('c_id'=>$_SESSION['customerId']));
-        $orderStu=0;
-        include 'view/order_inf.html.php';
         exit;
-
-
     }
-
-
+    if(isset($_GET['customerInf'])){
+        include 'view/customer_inf.html.php';
+        exit;
+    }
+    if(isset($_GET['getOrderDetail'])){
+        $orderQuery=pdoQuery('order_view',null,array("id"=>$_GET['id']),' limit 1');
+        $order_inf=$orderQuery->fetch();
+        $ordeDetailQuery=pdoQuery('user_order_view',null,array('o_id'=>$_GET['id']),'');
+        include 'view/order_detail.html.php';
+        exit;
+    }
 }
 
 
 //以下功能不需登录，不需判断$_SESSION['customerId']
 if(isset($_GET['getList'])){
-    $end='';
+    $end=' group by g_id';
     $where=null;
     if(isset($_GET['father_id']))$where['father_id']=$_GET['father_id'];
     if(isset($_GET['sc_id']))$where['sc_id']=$_GET['sc_id'];
     if(isset($_GET['made_in']))$where['made_in']=$_GET['made_in'];
     if(isset($_GET['name'])){
-        $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"');
+        $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"').$end;
     }
-    $query=pdoQuery('user_g_inf_view',null,$where,$end);
+    $query=pdoQuery('(select * from user_tmp_list_view order by price asc) p',null,$where,$end);
+//    pdoQuery('(select * from user_pro_view order by price asc) p',null,null,' group by g_id order by father_id limit 8');
     include 'view/list.html.php';
 
 }
 if(isset($_GET['goodsdetail'])){
+    if($_GET['g_id']==null){
+        header('location:index.php');
+        exit;
+    }
     $query=pdoQuery('user_g_inf_view',null,array('g_id'=>$_GET['g_id']),' limit 1');
     $inf=$query->fetch();
     $imgQuery=pdoQuery('g_image_tbl',null,array('g_id'=>$_GET['g_id']),null);
@@ -151,6 +187,7 @@ function getCartDetail($customerId){
     $totalPrice=0;
     $totalSave=0;
     $goodsQuery=pdoQuery('user_cart_view',null,array('c_id'=>$customerId),null);
+    $goodsList=array();
     foreach ($goodsQuery as $row) {
 
         if (isset($row['price'])) {
@@ -161,6 +198,7 @@ function getCartDetail($customerId){
         }
         $thisPrice = $price * $row['number'];
         $totalPrice += $thisPrice;
+
         $goodsList[] = array(
             'g_id'=>$row['g_id'],
             'd_id'=>$row['d_id'],
@@ -178,3 +216,4 @@ function getCartDetail($customerId){
         'goodsList'=>$goodsList
     );
 }
+

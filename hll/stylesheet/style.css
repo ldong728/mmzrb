@@ -61,7 +61,10 @@ button{
 button:hover{
     background-color: #ccc;
 }
-
+div.divButton{
+    border-style: solid;
+    text-align: center;
+}
 table tr td{
     height: 20px;
     padding: 10px 25px 10px 25px;
@@ -70,5 +73,37 @@ table tr td{
 img.demo{
     width: 100px;
     height:auto;
+}
+div.mobileView{
+    position: relative;
+    float: left;
+    /*width: 500px;*/
+    /*max-height: 800px;*/
+    /*overflow: hidden;*/
+}
+iframe{
+    width:480px;
+    height: 800px;
+    /*zoom:50%*/
+}
+div.orderView{
+    position: relative;
+
+
+}
+div.orderItem{
+    position: relative;
+    width: 100%;
+    border: solid;
+    border-width: thin;
+    /*float:left;*/
+
+}
+.orderView .hiddenContent{
+    display: none;
+}
+.orderView .address{
+    width: 60%;
+    border:1px solid #ccc;
 }
 
