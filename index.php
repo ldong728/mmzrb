@@ -5,9 +5,7 @@ include_once $mypath . '/includes/magicquotes.inc.php';
 include_once $mypath . '/includes/db.inc.php';
 include_once $mypath . '/includes/helpers.inc.php';
 include_once $mypath . '/view/layout.php';
-
 session_start();
-
 
 if (isset($_GET['country'])) {
     $sql_country = $_GET['country'];

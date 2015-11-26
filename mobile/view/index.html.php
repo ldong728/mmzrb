@@ -9,7 +9,6 @@
     <script src="../js/swiper.min.js"></script>
     <script>
         $(document).ready(function(){
-//            $('img.lazy').lazyload();
             $(document).on('click','div.hsTabItem',function(){
                 $('.hsTabItem').removeClass('curItem');
                 $(this).addClass('curItem');
@@ -22,6 +21,10 @@
                     $('.hsTabItem').removeClass('curItem');
                     $('div#'+swiper.activeIndex).addClass('curItem');
                 }
+            });
+            $(document).scroll(function(){
+
+
             });
 
         });
