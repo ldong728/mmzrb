@@ -23,7 +23,8 @@
                 }
             });
             $(document).scroll(function(){
-
+                $('#temp').empty();
+                $('#temp').append($('#temp').scrollTop);
 
             });
 
@@ -98,6 +99,7 @@
         <a class="rightTopImg"href=""><img src="../<?php echo $adList['top'][0]['img_url']?>"/></a>
         <a class="rightBottmImg"href=""><img src="../<?php echo $adList['bottom'][0]['img_url']?>"/></a>
     </div>
+    <div id="temp"></div>
     <div class="hotsellBox">
         <div class="hsTabBox">
             <div class="hsTab"style="position: inherit; top: 50px; left: 0px; z-index: 15;">
