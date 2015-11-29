@@ -19,6 +19,7 @@
             $("#g_id_img").val($("#g_name option:selected").val());
         });
         $("#sc_id").change(function(){
+            //alert('change');
             $("#g_name").load("ajax_request.php",{categoryCheck: $("#sc_id option:selected").val(),
                 country_id: $(".country option:selected").val()},$("#g_name").empty())
         });

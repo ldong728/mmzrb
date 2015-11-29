@@ -1,3 +1,4 @@
+<?php $category=$GLOBALS['category'];?>
 
 <form action = 'consle.php' method="post">
 
@@ -45,3 +46,26 @@
         <input type = "submit" value = "确定">
     </div>
 </form>
+<div id="temp">
+
+</div>
+
+<div>
+<?php foreach($category as $row):?>
+    <div class="cate-item">
+        <h4><?php echo $row['name']?></h4>
+        <p>首页促销展示：<input class="hdSwitch" id="<?php echo $row['id']?>" type="checkbox"<?php echo $row['remark']?'checked="checked"':''?>onclick="change(this)"></p>
+    </div>
+
+<?php endforeach?>
+
+</div>
+
+<script>
+    function change(o){
+        var stu= o.checked?'home':'';
+        $.post('ajax_request.php',{changeCateHome:1,stu:stu,id: o.id});
+    }
+
+
+</script>

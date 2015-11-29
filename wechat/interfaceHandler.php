@@ -8,8 +8,8 @@
 //define('appID','wx8426b63b5ce8c518');
 //define('appsecret','451129432c9ebe8fb74d0ac1a3926e3e');
 //define('wexinId','myBrainHole');
-define('APP_ID','wx8426b63b5ce8c518');
-define('APP_SECRET','451129432c9ebe8fb74d0ac1a3926e3e');
+define('APP_ID','wx0baf4a2c977aea54');
+define('APP_SECRET','c36e5fa132075b7e46537a008d919008');
 $mypath=$_SERVER['DOCUMENT_ROOT'] . '/mmzrb';
 class interfaceHandler {
     public $currentToken='';

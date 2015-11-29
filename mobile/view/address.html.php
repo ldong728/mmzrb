@@ -121,11 +121,6 @@
             });
         });
 
-    function showToast(str){
-        $('.toast').empty();
-        $('.toast').append(str)
-        $('.toast').fadeIn('fast')
-        var t = setTimeout('$(".toast").fadeOut("slow")', 800);
-    }
+
 </script>
 </body>

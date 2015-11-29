@@ -13,13 +13,15 @@ date_default_timezone_set('Asia/Shanghai');
 header("Content-Type:text/html; charset=utf-8");
 session_start();
 
+//echo 'ok';
+//exit;
 if(isset($_GET['c_id'])){
     $_SESSION['customerId']=$_GET['c_id'];
 }
-
-
-$categoryQuery=pdoQuery('category_tbl',array('id','name'),null,' order by id asc limit 5');
-$promotionQuery=pdoQuery('(select * from user_pro_view order by price asc) p',null,null,' group by g_id order by father_id');
+$config=getConfig('config/config.json');
+$categoryQuery=pdoQuery('category_tbl',array('id','name'),array('remark'=>'home'),' order by id asc limit 5');
+$promotionQuery=pdoQuery('(select * from user_pro_view order by price asc) p',null,null,
+    ' where father_id in (select id from category_tbl where remark="home") group by g_id order by father_id');
 $adQuery=pdoQuery('ad_tbl',null,null,'');
 foreach ($adQuery as $adRow) {
     $adList[$adRow['category']][]=$adRow;

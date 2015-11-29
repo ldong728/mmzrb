@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="mymanage">
-            <a class="myManage1">我的收藏
+            <a class="myManage1"href="controller.php?getFav=1">我的收藏
                 <i class="iright"></i></a>
             <a class="myManage5">完善用户信息
                 </i></a>

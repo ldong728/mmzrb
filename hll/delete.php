@@ -12,7 +12,7 @@ if(isset($_SESSION['login'])) {
 //    $pdo->exec($sql);
         exeNew($sql);
         $g_id = $_GET['g_id'];
-        printView('hll/view/goods_edit.html.php');
+        header('location:index.php?goods-config=1&g_id=' . $g_id);
         exit;
 
     }

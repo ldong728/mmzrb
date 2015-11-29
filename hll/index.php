@@ -19,6 +19,7 @@ if (isset($_SESSION['login'])) {
         exit;
     }
     if (isset($_GET['category-config'])) {
+        $category=pdoQuery('category_tbl',null,null,null);
         printView('hll/view/category_config.html.php', '分类修改');
         exit;
     }

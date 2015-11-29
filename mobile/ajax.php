@@ -29,6 +29,7 @@ if(isset($_SESSION['customerId'])){
     if(isset($_POST['deleteAddr'])){
         pdoDelete('address_tbl',array('id'=>$_POST['id']));
         echo 'ok';
+        exit;
     }
     if(isset($_POST['addrNumRequest'])){
         $query=pdoQuery('address_tbl',array('count(*) as num'),array('c_id'=>$_SESSION['customerId']),'');
@@ -58,8 +59,20 @@ if(isset($_SESSION['customerId'])){
         echo json_encode($list);
 
     }
+    if(isset($_POST['addToFav'])){
+        pdoInsert('favorite_tbl',array('c_id'=>$_SESSION['customerId'],'g_id'=>$_POST['g_id']),'ignore');
+        echo('ok');
+        exit;
+    }
+    if(isset($_POST['deletFav'])){
+        pdoDelete('favorite_tbl',array('g_id'=>$_POST['g_id'],'c_id'=>$_SESSION['customerId']));
+        echo 'ok';
+        exit;
+    }
 
 }
+
+//未登录
 if(isset($_POST['getdetailprice'])){
     $query=pdoQuery('user_detail_view',null,array('d_id'=>$_POST['d_id']),' limit 1');
     $row=$query->fetch();

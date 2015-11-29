@@ -80,18 +80,19 @@ if(isset($_SESSION['login'])) {
 
     }
 
-    function fileFilter($file, array $type, $size)
-    {
+
+}
+function fileFilter($file, array $type, $size)
+{
 //    mylog('fileType:'.$file['type']);
-        if (in_array($file['type'], $type) && $file['size'] < $size) {
-            if ($file['error'] > 0) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
+    if (in_array($file['type'], $type) && $file['size'] < $size) {
+        if ($file['error'] > 0) {
             return false;
+        } else {
+            return true;
         }
+    } else {
+        return false;
     }
 }
 ?>

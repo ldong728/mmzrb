@@ -1,5 +1,6 @@
 <?php
 $mypath = $_SERVER['DOCUMENT_ROOT'] .'/mmzrb';   //用于直接部署
+$configPath='../mobile/config/config.json';
 include_once $mypath . '/includes/magicquotes.inc.php';
 include_once $mypath.'/includes/db.inc.php';
 include_once $mypath.'/includes/helpers.inc.php';
@@ -71,22 +72,18 @@ if(isset($_SESSION['login'])) {
         exit;
     }
     if (isset($_POST['categoryCheck'])) {
-        $query = 'SELECT id,name FROM g_inf_tbl WHERE sc_id = :sc_id';
-        if ($_POST['country_id'] != 'none') {
-            $query = $query . ' AND made_in = :made_in';
-            $myquery = $pdo->prepare($query);
-            $myquery->bindValue(':made_in', $_POST['country_id']);
-        } else {
-            $myquery = $pdo->prepare($query);
+        $where=array('sc_id'=>$_POST['categoryCheck']);
+        if (isset($_POST['country_id'])&&$_POST['country_id'] != 'none') {
+            $where['made_in']=$_POST['country_id'];
         }
-        $myquery->bindValue(':sc_id', $_POST['categoryCheck']);
-        $myquery->execute();
-
+        $myquery=pdoQuery('g_inf_tbl',array('id','name'),$where,null);
         $back = '<option value = "0">请选择商品</option>';
         foreach ($myquery as $row) {
             $back = $back . '<option value = "' . $row['id'] . '">' . $row['name'] . '</option>';
         }
         echo $back;
+        mylog($back);
+        exit;
     }
     if (isset($_POST['filte'])) {
         $where = array();
@@ -241,6 +238,16 @@ if(isset($_SESSION['login'])) {
             $detail[]=$row;
         }
         echo json_encode($detail);
+    }
+    if(isset($_POST['changeCateHome'])){
+        pdoUpdate('category_tbl',array('remark'=>$_POST['stu']),array('id'=>$_POST['id']));
+        $query=pdoQuery('category_tbl',array('count(*) as num'),array('remark'=>'home'),null);
+        $num=$query->fetch();
+        $config=getConfig($configPath);
+        $config['cateWidth']=100/$num['num']<20? 20:100/$num['num'];
+        saveConfig($configPath,$config);
+        echo 'ok';
+        exit;
     }
 }
 ?>

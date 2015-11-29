@@ -56,7 +56,8 @@ if(isset($_SESSION['login'])) {
         $s->bindValue(':inf', $_POST['g_inf']);
         $s->execute();
         $g_id = $_POST['g_id'];
-        printView('hll/view/goods_edit.html.php?g_id='.$_POST['g_id'], '货品修改');
+//        printView('hll/view/goods_edit.html.php', '货品修改');
+        header('location:index.php?goods-config=1&g_id=' . $g_id);
         exit;
     }
     if (isset($_POST['filtOrder'])){

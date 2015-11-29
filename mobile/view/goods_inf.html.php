@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="stylesheet/swiper.3.2.0.min.css"/>
     <link rel="stylesheet" href="stylesheet/myswiper.css"/>
         <link rel="stylesheet" href="stylesheet/goods_inf.css"/>
-<!--    <link rel="stylesheet" href="stylesheet/sort.css"/>-->
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/lazyload.js"></script>
 
@@ -41,7 +40,7 @@
                     <ul class="pd_imgList swiper-wrapper"style="height: 200px">
                         <?php foreach($imgQuery as $img):?>
                             <li class="swiper-slide">
-                                <img class="pro_picture swiper-lazy" data-src="../<?php echo $img['url']?>"style="width:200px; height:200px; margin:0 auto;">
+                                <img class="pro_picture swiper-lazy" data-src="../<?php echo $img['url']?>"style="width:auto; height:200px; margin:0 auto;">
                             </li>
 
                         <?php endforeach?>
@@ -70,7 +69,7 @@
                         <span class="bao">正品保障</span>
                     </dd>
                     <dd class="favBox">
-                        <a class="fav"href="">收藏</a>
+                        <a class="fav"id="fav"href="#">收藏</a>
                     </dd>
                 </dl>
             </div>
@@ -112,7 +111,7 @@
                 <a class="goCart"href="controller.php?getCart=1"></a>
             </div>
         </div>
-        <div class="toast"id="add-cart-sucessful">加入购物车成功</div>
+        <div class="toast"></div>
     </div>
 
 </div>

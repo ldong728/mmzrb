@@ -38,11 +38,16 @@
     });
     $(document).on('click', '#add-to-cart', function () {
         $.post('ajax.php', {addToCart: 1, g_id: g_id, d_id: d_id, number: number}, function (data) {
-//                    $.mobile.changePage('#add-done', 'pop', true, true);  //页面跳转
-            $('#add-cart-sucessful').fadeIn('fast')
-            var t = setTimeout('$("#add-cart-sucessful").fadeOut("slow")', 800);
+            //$('#add-cart-sucessful').fadeIn('fast')
+            //var t = setTimeout('$("#add-cart-sucessful").fadeOut("slow")', 800);
+            showToast('加入购物车成功');
         })
 
+    });
+    $(document).on('click','#fav',function(){
+        $.post('ajax.php',{addToFav:1,g_id:g_id},function(data){
+           showToast('收藏成功');
+        });
     });
     $(document).on('click', '#getGoodsInf', function () {
         $('#goodsInf').fadeToggle('slow');

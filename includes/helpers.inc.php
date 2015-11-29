@@ -42,7 +42,7 @@ function printInf($p){
 function getArrayInf($array){
     $s='{';
     foreach ($array as $k=>$v) {
-        $s=$s.$k.': ';
+        $s=$s.','.$k.': ';
         if(is_array($v)){
             $s=$s.getArrayInf($v);
         }else{
@@ -59,20 +59,7 @@ function mylog($str){
     }
 }
 
-function printViewMobile($addr,$title='abc',$hasInput=false){
 
-    $mypath= $GLOBALS['mypath'];
-    if($hasInput){
-        include $mypath.'/mobile/templates/headerJs.html.php';
-
-    }else{
-        include $mypath.'/mobile/templates/header.html.php';
-    }
-//    echo 'header OK';
-
-    include $mypath.'/'.$addr;
-    include $mypath.'/mobile/templates/footer.html.php';
-}
 
 function printView($addr,$title='abc'){
 
@@ -103,7 +90,20 @@ function getProvince($pro){
         return $config[$pro];
     }
 }
+function printViewMobile($addr,$title='abc',$hasInput=false){
 
+    $mypath= $GLOBALS['mypath'];
+    if($hasInput){
+        include $mypath.'/mobile/templates/headerJs.html.php';
+
+    }else{
+        include $mypath.'/mobile/templates/header.html.php';
+    }
+//    echo 'header OK';
+
+    include $mypath.'/'.$addr;
+    include $mypath.'/mobile/templates/footer.html.php';
+}
 function getCity($pro,$city){
     $datafile = 'config/city.inc.php';
     if(file_exists($datafile)){
@@ -132,4 +132,12 @@ function getArea($pro,$city,$area){
             }
         }
     }
+}
+function getConfig($path){
+    $data=file_get_contents($path);
+    return json_decode($data,true);
+}
+function saveConfig($path,array $config){
+    $data=json_encode($config);
+    file_put_contents($path,$data);
 }

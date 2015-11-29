@@ -7,30 +7,7 @@
     <link rel="stylesheet" href="stylesheet/index.css"/>
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/swiper.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(document).on('click','div.hsTabItem',function(){
-                $('.hsTabItem').removeClass('curItem');
-                $(this).addClass('curItem');
-                swiper.slideTo($(this).attr('id'));
-            });
-            $('div#0').addClass('curItem');
-            var swiper = new Swiper('#hotsale', {
-                lazyLoading : true,
-                onSlideChangeEnd: function(swiper){
-                    $('.hsTabItem').removeClass('curItem');
-                    $('div#'+swiper.activeIndex).addClass('curItem');
-                }
-            });
-            $(document).scroll(function(){
-                $('#temp').empty();
-                $('#temp').append($('#temp').scrollTop);
-
-            });
-
-        });
-
-    </script>
+    <script src="../js/mobile-index.js"></script>
 </head>
 
 <body>
@@ -99,12 +76,11 @@
         <a class="rightTopImg"href=""><img src="../<?php echo $adList['top'][0]['img_url']?>"/></a>
         <a class="rightBottmImg"href=""><img src="../<?php echo $adList['bottom'][0]['img_url']?>"/></a>
     </div>
-    <div id="temp"></div>
     <div class="hotsellBox">
         <div class="hsTabBox">
             <div class="hsTab"style="position: inherit; top: 50px; left: 0px; z-index: 15;">
                 <?php $index=0; foreach ( $categoryQuery as $cRow):?>
-                <div class="hsTabItem"id="<?php echo $index++?>">
+                <div class="hsTabItem"id="<?php echo $index++?>"style="width:<?php echo $config['cateWidth']?>%">
                     <span class="hsItemTxt">
                         <?php echo $cRow['name']?>
                     </span>

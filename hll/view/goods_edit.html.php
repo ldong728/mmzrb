@@ -32,7 +32,7 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
         </select>
 
         <select class = "country" id = "made_in">
-            <option value = "none">产地</option>
+            <option value = "none"selected="selected">产地</option>
             <option value = "us">美国</option>
             <option value = "de">德国</option>
             <option value = "jp">日本</option>
@@ -52,7 +52,7 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
     <input type="file" name="spic[]" id="v6" /><br/>
     <input type="file" name="spic[]" id="v7" /><br/>
     <input type="file" name="spic[]" id="v8" /><br/>
-    <input type="hidden" name="g_id" id="g_id_img" value="-1"/>
+    <input type="hidden" name="g_id" id="g_id_img" value="<?php echo $g_id?>"/>
     <input type="submit" name="sub" value="上传图片" onclick="return Check()" />
     <input type="reset" name="res" value="重填" />
 </form>

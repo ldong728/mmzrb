@@ -107,6 +107,11 @@ if(isset($_SESSION['customerId'])){
         include 'view/order_detail.html.php';
         exit;
     }
+    if(isset($_GET['getFav'])){
+        $query=pdoQuery('user_fav_view',null,array('c_id'=>$_SESSION['customerId']),null);
+        include 'view/favorite.html.php';
+        exit;
+    }
 }
 
 
