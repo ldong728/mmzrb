@@ -39,17 +39,22 @@
                 <div class="swiper-container mpdImg"id="goods-inf-swiper">
                     <ul class="pd_imgList swiper-wrapper"style="height: 200px">
                         <?php foreach($imgQuery as $img):?>
-                            <li class="swiper-slide">
-                                <img class="pro_picture swiper-lazy" data-src="../<?php echo $img['url']?>"style="width:auto; height:200px; margin:0 auto;">
+                            <li class="swiper-slide"style="height: 200px">
+                                <img class="pro_picture swiper-lazy" data-src="../<?php echo $img['url']?>"style="width:auto; height:200px; margin:0 auto;z-index:0">
                             </li>
 
                         <?php endforeach?>
                     </ul>
                 </div>
                 <script>
+                    var wrapperWidth=0;
+                    $('li.swiper-slide').each(function(){
+                        wrapperWidth+=531;
+                    });
+                    $('.pd_imgList').css('width',wrapperWidth+'px');
                     var swiper = new Swiper('#goods-inf-swiper', {
-                        lazyLoading: true
-//                        autoplay:2000
+                        lazyLoading: true,
+                        autoplay:2000
                     });
                 </script>
                 <div class="pName">
