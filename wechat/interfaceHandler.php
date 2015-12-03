@@ -8,14 +8,15 @@
 //define('appID','wx8426b63b5ce8c518');
 //define('appsecret','451129432c9ebe8fb74d0ac1a3926e3e');
 //define('wexinId','myBrainHole');
-define('APP_ID','wx0baf4a2c977aea54');
-define('APP_SECRET','c36e5fa132075b7e46537a008d919008');
-$mypath=$_SERVER['DOCUMENT_ROOT'] . '/mmzrb';
+define('APP_ID','wx03393af10613da23');
+define('APP_SECRET','40751854901cc489eddd055538224e8a');
+define('WEIXIN_ID','gh_964192c927cb');
+
+
 class interfaceHandler {
     public $currentToken='';
     public $gettedTime=0;
     public $expiresIn=7200;
-//    public $weixinId='';
     public function __construct($id){
         $this->weixinId=$id;
         $this->reflashAccessToken();
@@ -34,7 +35,6 @@ class interfaceHandler {
         }
     }
     public function getTokenOnLine(){
-        include_once $GLOBALS['mypath'].'/includes/db.inc.php';
         $jsonToken=file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.APP_ID.'&secret='.APP_SECRET);
         $geted=json_decode($jsonToken,true);
         $geted['gettedTime']=time();

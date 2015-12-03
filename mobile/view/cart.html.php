@@ -1,11 +1,8 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>麻麻去日本</title>
-    <link rel="stylesheet" href="stylesheet/mobile.css"/>
+    <?php include 'templates/header.php'?>
     <link rel="stylesheet" href="stylesheet/cart.css"/>
     <link rel="stylesheet" href="stylesheet/swiper.3.2.0.min.css"/>
     <link rel="stylesheet" href="stylesheet/myswiper.css"/>
-    <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/lazyload.js"></script>
     <script src="../js/swiper.min.js"></script>
 </head>

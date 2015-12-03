@@ -19,6 +19,8 @@
         <li><a href="index.php?promotions=1">促销管理</a></li>
         <li><a href="index.php?ad=1">广告栏管理</a></li>
         <li><a href="index.php?orders=1">订单管理</a></li>
+        <li><a href="index.php?wechatConfig=1">微信公众号</a></li>
         <li><a href="index.php?logout=1">退出</a></li>
+
     </ul>
 </nav>

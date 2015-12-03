@@ -1,9 +1,6 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>麻麻去日本</title>
-    <link rel="stylesheet" href="stylesheet/mobile.css"/>
+    <?php include 'templates/header.php'?>
     <link rel="stylesheet" href="stylesheet/customer_inf.css"/>
-    <script src="../js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -23,7 +20,7 @@
         <div class="user_info">
             <p class="username">
                 欢迎你，
-                <span><?php echo $_SESSION['customerId']?></span>
+                <span><?php echo $_SESSION['userInf']['nickname']?></span>
             </p>
             <a class="logout">更换帐号</a>
             <div class="memberRank mr1"></div>

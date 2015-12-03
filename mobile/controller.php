@@ -5,11 +5,7 @@
  * Date: 2015/10/28
  * Time: 15:14
  */
-$mypath = $_SERVER['DOCUMENT_ROOT'] . '/mmzrb';   //用于直接部署
-include_once $mypath . '/includes/magicquotes.inc.php';
-include_once $mypath . '/includes/db.inc.php';
-include_once $mypath . '/includes/helpers.inc.php';
-header("Content-Type:text/html; charset=utf-8");
+include_once '../includePackage.php';
 session_start();
 
 if(isset($_SESSION['customerId'])){
@@ -108,7 +104,7 @@ if(isset($_SESSION['customerId'])){
         exit;
     }
     if(isset($_GET['getFav'])){
-        $query=pdoQuery('user_fav_view',null,array('c_id'=>$_SESSION['customerId']),null);
+        $query=pdoQuery('user_fav_view',null,array('c_id'=>$_SESSION['customerId']),' group by g_id');
         include 'view/favorite.html.php';
         exit;
     }
@@ -116,6 +112,19 @@ if(isset($_SESSION['customerId'])){
 
 
 //以下功能不需登录，不需判断$_SESSION['customerId']
+if(isset($_GET['oauth'])){
+    include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
+    if($_GET['code']){
+        $userId=getOauthToken($_GET['code']);
+        $_SESSION['customerId']=$userId['openid'];
+        $_SESSION['userInf']=getUnionId($userId['openid']);
+        $rand=rand(1000,9999);
+        header('location:index.php?rand='.$rand);
+        exit;
+    }
+    echo 'ok';
+
+}
 if(isset($_GET['getList'])){
     $end=' group by g_id';
     $where=null;
@@ -126,8 +135,8 @@ if(isset($_GET['getList'])){
         $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"').$end;
     }
     $query=pdoQuery('(select * from user_tmp_list_view order by price asc) p',null,$where,$end);
-//    pdoQuery('(select * from user_pro_view order by price asc) p',null,null,' group by g_id order by father_id limit 8');
     include 'view/list.html.php';
+
 
 }
 if(isset($_GET['goodsdetail'])){

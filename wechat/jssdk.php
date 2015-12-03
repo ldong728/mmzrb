@@ -1,6 +1,6 @@
 <?php
-$mypath=$_SERVER['DOCUMENT_ROOT'] . '/mmzrb';
-require_once $mypath.'/wechat/interfaceHandler.php';
+//$mypath=$_SERVER['DOCUMENT_ROOT'] . '/mmzrb';
+require_once 'interfaceHandler.php';
 class JSSDK {
 
   private $appId;
@@ -52,7 +52,7 @@ class JSSDK {
 
   private function getJsApiTicket() {
     // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
-    $data = json_decode(file_get_contents($GLOBALS['mypath'].'/tokens/'.$this->weixinId.'_jsapi_ticket.dat'));
+    $data = json_decode(file_get_contents($GLOBALS['mypath'].'/tokens/jsapi_ticket.dat'));
     if ($data->expire_time < time()) {
 //        wxlog('ticket timeout: '.(time()-$data->expire_time));
       // 如果是企业号用以下 URL 获取 ticket
@@ -65,9 +65,9 @@ class JSSDK {
         $data->expire_time = time() + 7000;
         $data->jsapi_ticket = $ticket;
           $data=json_encode($data);
-        file_put_contents($GLOBALS['mypath'].'/tokens/'.$this->weixinId.'_jsapi_ticket.dat',$data);
+        file_put_contents($GLOBALS['mypath'].'/tokens/jsapi_ticket.dat',$data);
       }
-      wxlog('get jsapiTicketOnLine');
+      mylog('get jsapiTicketOnLine');
     } else {
       $ticket = $data->jsapi_ticket;
 //      wxlog('get jsapiTicket from file');
@@ -76,19 +76,5 @@ class JSSDK {
     return $ticket;
   }
 
-
-//  private function httpGet($url) {
-//    $curl = curl_init();
-//    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-//    curl_setopt($curl, CURLOPT_TIMEOUT, 500);
-//    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-//    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-//    curl_setopt($curl, CURLOPT_URL, $url);
-//
-//    $res = curl_exec($curl);
-//    curl_close($curl);
-//
-//    return $res;
-//  }
 }
 

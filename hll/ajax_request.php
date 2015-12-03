@@ -1,9 +1,5 @@
 <?php
-$mypath = $_SERVER['DOCUMENT_ROOT'] .'/mmzrb';   //用于直接部署
-$configPath='../mobile/config/config.json';
-include_once $mypath . '/includes/magicquotes.inc.php';
-include_once $mypath.'/includes/db.inc.php';
-include_once $mypath.'/includes/helpers.inc.php';
+include_once '../includePackage.php';
 session_start();
 
 if(isset($_SESSION['login'])) {
@@ -240,6 +236,7 @@ if(isset($_SESSION['login'])) {
         echo json_encode($detail);
     }
     if(isset($_POST['changeCateHome'])){
+        $configPath=$GLOBALS['mypath'].'/mobile/config/config.json';
         pdoUpdate('category_tbl',array('remark'=>$_POST['stu']),array('id'=>$_POST['id']));
         $query=pdoQuery('category_tbl',array('count(*) as num'),array('remark'=>'home'),null);
         $num=$query->fetch();

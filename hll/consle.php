@@ -5,10 +5,7 @@
  * Date: 2015/10/29
  * Time: 10:50
  */
-$mypath = $_SERVER['DOCUMENT_ROOT'] .'/mmzrb';   //用于直接部署
-include_once $mypath . '/includes/magicquotes.inc.php';
-include_once $mypath.'/includes/db.inc.php';
-include_once $mypath.'/includes/helpers.inc.php';
+include_once '../includePackage.php';
 session_start();
 
 
@@ -88,5 +85,14 @@ if(isset($_SESSION['login'])) {
             header('location:index.php?goods-config=1&g_id=' .$_GET['g_id']);
         }
         exit;
+    }
+    if(isset($_GET['wechat'])){
+
+        include_once '../wechat/serveManager.php';
+        if(isset($_GET['createButton'])){
+            createButtonTemp();
+            exit;
+        }
+
     }
 }

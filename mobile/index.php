@@ -5,16 +5,10 @@
  * Date: 2015/10/20
  * Time: 11:44
  */
-$mypath = $_SERVER['DOCUMENT_ROOT'] . '/mmzrb';   //用于直接部署
-include_once $mypath . '/includes/magicquotes.inc.php';
-include_once $mypath . '/includes/db.inc.php';
-include_once $mypath . '/includes/helpers.inc.php';
-date_default_timezone_set('Asia/Shanghai');
-header("Content-Type:text/html; charset=utf-8");
-session_start();
-
-//echo 'ok';
+include_once '../includePackage.php';
+//mylog(sha1('jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VHdKKGs8cBwdqT7bMLcUAz5lTVbWQ2hbLyxAz7IIJjjeCEDFTis4DZP6Sqnh92TTLw&noncestr=ugZHU96K4AK9MEVG&timestamp=1448978919&url=http://115.29.202.69/'));
 //exit;
+session_start();
 if(isset($_GET['c_id'])){
     $_SESSION['customerId']=$_GET['c_id'];
 }

@@ -30,20 +30,22 @@ class wechat
     }
     public function receiverFilter()
     {
-
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-        if (!empty($postStr)) {
-            libxml_disable_entity_loader(true);
-            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $msg['from'] = $postObj->FromUserName;
-            $msg['me'] = $postObj->ToUserName;
-            $msg['content'] = trim($postObj->Content);
-            foreach ($postObj->children() as $child) {
-//                wxlog($child);
-                $msg[$child->getName()]=(string)$child;
+        if(isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
+            $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+            if (!empty($postStr)) {
+                libxml_disable_entity_loader(true);
+                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $msg['from'] = $postObj->FromUserName;
+                $msg['me'] = $postObj->ToUserName;
+                $msg['content'] = trim($postObj->Content);
+                foreach ($postObj->children() as $child) {
+                    $msg[$child->getName()] = (string)$child;
+                }
+                $this->msg = $msg;
+                return $msg;
             }
-            $this->msg=$msg;
-            return $msg;
+        }else{
+            return array();
         }
     }
 

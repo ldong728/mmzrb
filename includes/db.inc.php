@@ -1,8 +1,8 @@
 <?php
-$db_name = 'mmzrb_db';
+$db_name = 'gshop_db';
 
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=' . $db_name, 'mmzrb', 'godlee1394');
+    $pdo = new PDO('mysql:host=localhost;dbname=' . $db_name, 'gshopUser', 'cT9vVpxBLQaFQYrh');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec('SET NAMES "utf8"');
 //    $pdo->q
@@ -54,7 +54,7 @@ function pdoQuery($tableName, $fields, $where, $append)
     if($append!=null){
         $sql=$sql.' '.$append;
     }
-    mylog('sql:'.$sql);
+//    mylog('sql:'.$sql);
     try {
         $query = $GLOBALS['pdo']->query($sql);
         return $query;
@@ -102,7 +102,7 @@ function pdoInsert($tableName,$value,$str=''){
     }else{
         $sql=$sql.$str;
     }
-    mylog($sql);
+//    mylog($sql);
     try {
         $GLOBALS['pdo']->exec($sql);
         return $GLOBALS['pdo']->lastInsertId();
@@ -138,7 +138,7 @@ function pdoUpdate($tableName,array $value,array $where,$str=''){
         }
     }
     $sql=$sql.$str;
-    mylog($sql);
+//    mylog($sql);
 //    echo $sql;
 //    exit;
     try {
@@ -174,7 +174,7 @@ function pdoDelete($tableName,array $where,$str=''){
 
     }
     $sql=$sql.$str;
-    mylog($sql);
+//    mylog($sql);
     try {
         $GLOBALS['pdo']->exec($sql);
         return $GLOBALS['pdo']->lastInsertId();
@@ -257,7 +257,7 @@ function pdoBatchInsert($tableName,array $value,$str=''){
     }else{
         $sql=$sql.$str;
     }
-    mylog('BatchInsert:'.$sql);
+//    mylog('BatchInsert:'.$sql);
     $p=$GLOBALS['pdo']->prepare($sql);
     foreach ($value as $data) {
         foreach ($data as $k=>$v) {

@@ -1,10 +1,7 @@
 <?php
 
-$mypath = $_SERVER['DOCUMENT_ROOT'] . '/mmzrb';   //用于直接部署
-include_once $mypath . '/includes/magicquotes.inc.php';
-include_once $mypath . '/includes/db.inc.php';
-include_once $mypath . '/includes/helpers.inc.php';
-include_once $mypath . '/includes/mmzrb.php';
+include_once '../includePackage.php';
+session_start();
 
 if (!isset($_SESSION['mq']) || !isset($_SESSION['smq'])) {
     init();
@@ -40,6 +37,10 @@ if (isset($_SESSION['login'])) {
 
         $orderQuery=pdoQuery('order_view',null,array('stu'=>$_GET['orders']),'');
         printView('hll/view/orderManage.html.php','订单管理');
+        exit;
+    }
+    if(isset($_GET['wechatConfig'])){
+        printView('hll/view/wechatConfig.html.php','微信公众平台');
         exit;
     }
     if (isset($_GET['logout'])) {//登出
