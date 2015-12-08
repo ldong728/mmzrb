@@ -17,13 +17,13 @@
             <input type="hidden"name="adImg"value="../<?php echo $row['img_url']?>">
             <td><?php echo $row['category']?></td>
             <td>
-                <select id = "sc_id">
+                <select class = "sc_id"id="<?php echo $row['id']?>">
                     <option value = "0">分类</option>
                     <?php foreach ($_SESSION['smq'] as $r): ?>
                         <option value = "<?php echo $r['id'] ?>"><?php  htmlout($r['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
-                <select id="g_name" name="g_id"></select>
+                <select class="g_name" name="g_id"id="name<?php echo $row['id']?>"></select>
             </td>
             <td></td>
             <td><img src="../<?php echo $row['img_url']?>" style="width: 100px;height: 100px"> </td>
@@ -37,9 +37,12 @@
 
 </table>
 
+
 <script>
-    $("#sc_id").change(function(){
-        $("#g_name").load("ajax_request.php",{categoryCheck: $("#sc_id option:selected").val(),
-            country_id: 'none'},$("#g_name").empty())
+    $(".sc_id").change(function(){
+//        alert('')
+        var id=$(this).attr('id');
+        $('#name'+id).load("ajax_request.php",{categoryCheck: $("#"+id+" option:selected").val(),
+            country_id: 'none'},$('#name'+id).empty());
     });
 </script>

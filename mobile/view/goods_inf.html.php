@@ -1,13 +1,10 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php include 'templates/header.php'?>
     <meta content="YES" name="apple-touch-fullscreen">
     <meta content="yes" name="apple-mobile-web-app-capable">
-    <title>麻麻去日本</title>
-    <link rel="stylesheet" href="stylesheet/mobile.css"/>
     <link rel="stylesheet" href="stylesheet/swiper.3.2.0.min.css"/>
     <link rel="stylesheet" href="stylesheet/myswiper.css"/>
         <link rel="stylesheet" href="stylesheet/goods_inf.css"/>
-    <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/lazyload.js"></script>
 
 </head>

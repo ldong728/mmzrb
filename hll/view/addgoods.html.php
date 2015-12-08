@@ -2,16 +2,6 @@
 $smq=$_SESSION['smq'];
 ?>
 
-<script>
-    $(document).ready(function(){
-
-
-
-
-
-    });
-
-</script>
 
 <div>
     <form action="consle.php" method="post">
@@ -39,7 +29,9 @@ $smq=$_SESSION['smq'];
         </div>
         <div>
             <label for="inf">介绍：
-                <textarea id="textarea" name="g_inf" rows="15" cols="80"></textarea>
+                <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+    <p>这里我可以写一些输入提示</p>
+</script>
             </label>
         </div>
         <div>
@@ -65,5 +57,15 @@ $smq=$_SESSION['smq'];
         </div>
 
     </form>
+
+    <!--style给定宽度可以影响编辑器的最终宽度-->
+<!--    <link href="../uedit/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">-->
+    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>
+
+    <script type="text/javascript">
+        var um = UM.getEditor('myEditor');
+
+    </script>
 
 </div>

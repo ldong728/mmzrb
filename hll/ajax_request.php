@@ -78,7 +78,7 @@ if(isset($_SESSION['login'])) {
             $back = $back . '<option value = "' . $row['id'] . '">' . $row['name'] . '</option>';
         }
         echo $back;
-        mylog($back);
+//        mylog($back);
         exit;
     }
     if (isset($_POST['filte'])) {

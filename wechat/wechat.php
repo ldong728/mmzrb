@@ -6,7 +6,7 @@
  * Time: 8:31
  */
 
-define("TOKEN", "godlee");
+//define("TOKEN", "godlee");
 
 class wechat
 {

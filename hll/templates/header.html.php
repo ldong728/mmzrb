@@ -4,7 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title><?php echo $title?></title>
     <script type="text/javascript" src="../js/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet/style.css"><link href="../uedit/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../uedit/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>
+    <script type="text/javascript" src="../uedit/lang/zh-cn/zh-cn.js"></script>
 </head>
 
 <body>

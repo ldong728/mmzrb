@@ -65,13 +65,13 @@
         </a>
     </nav>
     <div class="floor">
-        <a class="rowleftimg" href=""><img src="../<?php echo $adList['rowleft'][0]['img_url']?>"/></a>
-        <a class="rowrightimg"href=""><img src="../<?php echo $adList['rowright'][0]['img_url']?>"/></a>
+        <a class="rowleftimg" href="controller.php?goodsdetail=1&g_id=<?php echo $adList['rowleft'][0]['g_id']?>"><img src="../<?php echo $adList['rowleft'][0]['img_url']?>"/></a>
+        <a class="rowrightimg"href="controller.php?goodsdetail=1&g_id=<?php echo $adList['rowright'][0]['g_id']?>"><img src="../<?php echo $adList['rowright'][0]['img_url']?>"/></a>
     </div>
     <div class="floor">
-        <a class="leftImg"href=""><img src="../<?php echo $adList['left'][0]['img_url']?>"/></a>
-        <a class="rightTopImg"href=""><img src="../<?php echo $adList['top'][0]['img_url']?>"/></a>
-        <a class="rightBottmImg"href=""><img src="../<?php echo $adList['bottom'][0]['img_url']?>"/></a>
+        <a class="leftImg"href="controller.php?goodsdetail=1&g_id=<?php echo $adList['left'][0]['g_id']?>"><img src="../<?php echo $adList['left'][0]['img_url']?>"/></a>
+        <a class="rightTopImg"href="controller.php?goodsdetail=1&g_id=<?php echo $adList['top'][0]['g_id']?>"><img src="../<?php echo $adList['top'][0]['img_url']?>"/></a>
+        <a class="rightBottmImg"href="controller.php?goodsdetail=1&g_id=<?php echo $adList['bottom'][0]['g_id']?>"><img src="../<?php echo $adList['bottom'][0]['img_url']?>"/></a>
     </div>
     <div class="hotsellBox">
         <div class="hsTabBox">
@@ -96,8 +96,8 @@
                         </div>
                         <p class="prodName"><?php echo $row['name']?></p>
                         <p class="prodPrice">
-                            <span class="bPrice"><?php echo $row['price']?></span>
-                            <span class="mPrice"><?php echo $row['sale']?></span>
+                            <span class="bPrice">￥<?php echo $row['price']?></span>
+                            <span class="mPrice">￥<?php echo $row['sale']?></span>
                         </p>
                     </a>
                 <?php endforeach?>

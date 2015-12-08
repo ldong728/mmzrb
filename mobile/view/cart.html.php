@@ -92,7 +92,7 @@
                 flushPrice();
             });
         });
-        $(document).on('click','.cDelete',function(){
+        $(document).on('click','.delete',function(){
             var d_id=$(this).attr('id');
             $.post('ajax.php',{deleteCart:1,d_id:d_id},function(data){
                 $('#list'+d_id).fadeOut('slow',function(){

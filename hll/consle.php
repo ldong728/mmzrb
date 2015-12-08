@@ -95,4 +95,7 @@ if(isset($_SESSION['login'])) {
         }
 
     }
+    if(isset($_GET['imgUpdate'])){
+        mylog('update');
+    }
 }

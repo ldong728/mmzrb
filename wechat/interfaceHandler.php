@@ -8,9 +8,10 @@
 //define('appID','wx8426b63b5ce8c518');
 //define('appsecret','451129432c9ebe8fb74d0ac1a3926e3e');
 //define('wexinId','myBrainHole');
-define('APP_ID','wx03393af10613da23');
-define('APP_SECRET','40751854901cc489eddd055538224e8a');
-define('WEIXIN_ID','gh_964192c927cb');
+//
+//define('APP_ID','wx03393af10613da23');
+//define('APP_SECRET','40751854901cc489eddd055538224e8a');
+//define('WEIXIN_ID','gh_964192c927cb');
 
 
 class interfaceHandler {
