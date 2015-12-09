@@ -121,28 +121,41 @@ if(isset($_SESSION['login'])) {
 
     }
     if (isset($_POST["g_id"])) {
-        $query = pdoQuery('g_inf_tbl', array('name', 'inf'), array('id' => $_POST['g_id']), null);
+        $query = pdoQuery('g_inf_tbl', array('name', 'inf'), array('id' => $_POST['g_id']), ' limit 1');
         if ($goodsInf = $query->fetch()) {
-            $back = '<form action="consle.php" method="post">
-                <div>
-                <label for ="name">名称
-                    <input id = "name" type = "text" name="name" value ="' . $goodsInf['name'] . '"/>
-                </label>
-                </div>
-                <div>
-                <label for = "inf">介绍：
-                    <textarea id = "g_inf" name = "g_inf" rows = "15" cols = "80">
-                        ' . $goodsInf['inf'] . '
-                    </textarea>
-                </label>
-                </div>
-                <input type="hidden"name="alter"value="1"/>
-                <input type="hidden"name="g_id"value="' . $_POST['g_id'] . '"/>
-                <button>提交修改信息</button>
-                </form>
-                ';
-            $detailContent = '<div id="category_block">';
+            $back['goodsInf']=$goodsInf;
             $query = pdoQuery('g_detail_tbl', array('id', 'category', 'sale', 'wholesale'), array('g_id' => $_POST['g_id']), null);
+            foreach ($query as $detailRow) {
+                $back['detail'][]=$detailRow;
+            }
+            $img = pdoQuery('g_image_tbl', array('id', 'url', 'front_cover'), array('g_id' => $_POST['g_id']), null);
+            foreach($img as $imgrow){
+                $back['img'][]=$imgrow;
+            }
+            $jsonBack=json_encode($back,JSON_UNESCAPED_UNICODE);
+            echo $jsonBack;
+            exit;
+
+//            $back = '<form action="consle.php" method="post">
+//                <div>
+//                <label for ="name">名称
+//                    <input id = "name" type = "text" name="name" value ="' . $goodsInf['name'] . '"/>
+//                </label>
+//                </div>
+//                <div>
+//                <label for = "inf">介绍：
+//                    <textarea id = "g_inf" name = "g_inf" rows = "15" cols = "80">
+//                        ' . $goodsInf['inf'] . '
+//                    </textarea>
+//                </label>
+//                </div>
+//                <input type="hidden"name="alter"value="1"/>
+//                <input type="hidden"name="g_id"value="' . $_POST['g_id'] . '"/>
+//                <button>提交修改信息</button>
+//                </form>
+//                ';
+            $detailContent = '<div id="category_block">';
+
             while ($detailRow = $query->fetch()) {
                 $detailContent = $detailContent . '
             <p>规格：<input type="text" class="category" id="' . $detailRow['id'] . '"value="' . $detailRow['category'] . '"/>

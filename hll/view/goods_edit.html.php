@@ -40,7 +40,42 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
 
         <select id = "g_name" name = "g_name"></select>
     </div>
-    <div id = "g_inf"></div>
+    <div id = "g_inf"style="display: block">
+
+        <form action="consle.php" method="post">
+            <div>
+                <label for ="name">名称
+                    <input id = "name" type = "text" name="name" value =""/>
+                </label>
+            </div>
+            <div>
+                <label for = "inf">介绍：
+                    <script type="text/plain" id = "uInput" name = "g_inf" style="width:1000px;height:240px;">
+                <p>在这里编辑商品信息</p>
+                </script>
+                </label>
+            </div>
+            <input type="hidden"name="alter"value="1"/>
+            <input type="hidden"name="g_id"id="hidden_g_id"value="' . $_POST['g_id'] . '"/>
+            <button>提交修改信息</button>
+        </form>
+        <div id="goods_detail">
+        </div>
+        <div class="divButton"><p id="add_category">添加规格</p></div>
+        <div id="goods_image">
+            <input type="radio" name="is_cover"class="is_cover"value="' . $imgrow['id'] . '"' . $ischeck . '/>
+            <a href="delete.php?delimg=' . $imgrow['url'] . '&g_id=' . $_POST['g_id'] . '"><img class="demo" src= "../' . $imgrow['url'] . '" alt = "error" /></a>
+        </div>
+
+
+
+    </div>
+<script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>
+<script type="text/javascript">
+    var um = UM.getEditor('uInput');
+
+</script>
 <script src="js/goodsInfEdit.js"></script>
 
 <form name="upfile" action="upload.php" method="post" enctype="multipart/form-data">

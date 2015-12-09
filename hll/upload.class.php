@@ -226,8 +226,6 @@ class uploader
      */
     private function  checkSize()
     {
-        mylog('文件：'.$this->fileSize);
-        mylog('限制：'.$this->config[ "maxSize" ] * 1024);
         return $this->fileSize <= ( $this->config[ "maxSize" ] * 1024 );
     }
 
