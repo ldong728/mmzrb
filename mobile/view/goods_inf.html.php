@@ -104,7 +104,8 @@
             </div>
         </div>
         <div class="pro_desc"id="goodsInf"style="display: none">
-            <?php echo $inf['inf']?>
+<!--            --><?php //mylog($inf['inf'])?>
+<!--            --><?php //echo $inf['inf']?>
         </div>
         <div class="fixedMenuBox">
             <div class="buttonSet">

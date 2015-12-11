@@ -257,7 +257,6 @@ function pdoBatchInsert($tableName,array $value,$str=''){
     }else{
         $sql=$sql.$str;
     }
-//    mylog('BatchInsert:'.$sql);
     $p=$GLOBALS['pdo']->prepare($sql);
     foreach ($value as $data) {
         foreach ($data as $k=>$v) {

@@ -40,7 +40,7 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
 
         <select id = "g_name" name = "g_name"></select>
     </div>
-    <div id = "g_inf"style="display: block">
+    <div id = "g_inf"style="display: none">
 
         <form action="consle.php" method="post">
             <div>
@@ -63,10 +63,16 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
         </div>
         <div class="divButton"><p id="add_category">添加规格</p></div>
         <div id="goods_image">
-            <input type="radio" name="is_cover"class="is_cover"value="' . $imgrow['id'] . '"' . $ischeck . '/>
-            <a href="delete.php?delimg=' . $imgrow['url'] . '&g_id=' . $_POST['g_id'] . '"><img class="demo" src= "../' . $imgrow['url'] . '" alt = "error" /></a>
         </div>
-
+        <form name="upfile" action="upload.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="spic[]" id="v1" /><br/>
+            <input type="file" name="spic[]" id="v2" /><br/>
+            <input type="file" name="spic[]" id="v3" /><br/>
+            <input type="file" name="spic[]" id="v4" /><br/>
+            <input type="hidden" name="g_id" id="g_id_img" value="<?php echo $g_id?>"/>
+            <input type="submit" name="sub" value="上传图片" onclick="return Check()" />
+            <input type="reset" name="res" value="重填" />
+        </form>
 
 
     </div>
@@ -78,16 +84,3 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
 </script>
 <script src="js/goodsInfEdit.js"></script>
 
-<form name="upfile" action="upload.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="spic[]" id="v1" /><br/>
-    <input type="file" name="spic[]" id="v2" /><br/>
-    <input type="file" name="spic[]" id="v3" /><br/>
-    <input type="file" name="spic[]" id="v4" /><br/>
-    <input type="file" name="spic[]" id="v5" /><br/>
-    <input type="file" name="spic[]" id="v6" /><br/>
-    <input type="file" name="spic[]" id="v7" /><br/>
-    <input type="file" name="spic[]" id="v8" /><br/>
-    <input type="hidden" name="g_id" id="g_id_img" value="<?php echo $g_id?>"/>
-    <input type="submit" name="sub" value="上传图片" onclick="return Check()" />
-    <input type="reset" name="res" value="重填" />
-</form>

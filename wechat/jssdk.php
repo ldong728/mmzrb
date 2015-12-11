@@ -58,8 +58,10 @@ class JSSDK {
       // 如果是企业号用以下 URL 获取 ticket
       // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
         $this->mInterfaceHander->reflashAccessToken();
-      $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=".$this->mInterfaceHander->currentToken;
-      $res = json_decode($this->mInterfaceHander->getByCurl($url));
+      $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=ACCESS_TOKEN";
+      $temptoken=$this->mInterfaceHander->getByCurl($url);
+        mylog($temptoken);
+      $res = json_decode($temptoken);
       $ticket = $res->ticket;
       if ($ticket) {
         $data->expire_time = time() + 7000;

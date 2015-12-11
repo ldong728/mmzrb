@@ -8,7 +8,6 @@
             });
             //$("#g_inf").load("ajax_request.php",{g_id:g_id});
             getGInf();
-            $("#g_id_img").val(g_id);
             }
         $(".country").change(function(){
             $("#g_name").load("ajax_request.php",{countryCheck: $(".country option:selected").val(),
@@ -45,26 +44,29 @@
         });
 
         function getGInf(){
+            $('#g_id_img').val(g_id);
             $('#hidden_g_id').val(g_id);
             $.post("ajax_request.php",{g_id:g_id},function(data){
                var inf=eval('('+data+')');
                 $('#name').val(inf.goodsInf.name);
                 um.setContent(inf.goodsInf.inf);
+                $('#goods_detail').empty();
                 $.each(inf.detail,function(k,v){
-                    $('#goods_detail').empty();
                     var content='<p>规格：<input type="text" class="category" id="' + v.id+ '"value="'+ v.category+ '"/>'+
                     '售价：<input type="text" class="sale" id="' + v.id + '"value="' + v.sale + '"/>'+
                     '批发价：<input type="text" class="wholesale" id="' + v.id + '"value="' + v.wholesale+ '"/>'+
                     '<a href="consle.php?del_detail_id=' + v.id + '&g_id=' +g_id +'">删除此规格</a>'+
                     '</p>';
                    $('#goods_detail').append(content);
-                });
-                $.each(inf.img,function(k,v){
                     $('#goods_image').empty();
-                    var isCheck=(1 == v.front_cover ? 'checked = true' : '');
-                    var content='<input type="radio" name="is_cover"class="is_cover"value="' + v.id+ '"' + isCheck + '/>'
-                    +'<a href="delete.php?delimg=' + v.url+ '&g_id=' +g_id+ '"><img class="demo" src= "../' + v.url + '" alt = "error" /></a>';
-                    $('#goods_image').append(content);
+                    $.each(inf.img,function(k,v){
+                        var isCheck=(1 == v.front_cover ? 'checked = true' : '');
+                        var content='<input type="radio" name="is_cover"class="is_cover"value="' + v.id+ '"' + isCheck + '/>'
+                            +'<a href="delete.php?delimg=' + v.url+ '&g_id=' +g_id+ '"><img class="demo" src= "../' + v.url + '" alt = "error" /></a>';
+                        $('#goods_image').append(content);
+                    });
+                    $('#g_inf').slideDown('fast');
                 });
+
             });
         }

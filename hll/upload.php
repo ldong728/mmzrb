@@ -30,17 +30,9 @@ if(isset($_SESSION['login'])) {
     }
 
     if (isset($_POST['g_id']) && $_POST['g_id'] != '-1') {
-//        $uploader=new uploader('spic');
-//        $uploader->upFile(time().rand(1000,9999));
-//        $inf=json_encode($uploader->getFileInfo(),JSON_UNESCAPED_UNICODE);
-//        echo $inf;
-//        exit;
         $file = $_FILES['spic'];
         $inf = '';
-        $sql = 'INSERT INTO g_image_tbl SET g_id = :id, url=:url';
-        $excu = $pdo->prepare($sql);
         for ($i = 0; $i < count($file['name']); $i++) {
-
             if ((($file["type"][$i] == "image/gif")
                     || ($file["type"][$i] == "image/jpeg")
                     || ($file["type"][$i] == "image/pjpeg"))
@@ -48,13 +40,9 @@ if(isset($_SESSION['login'])) {
             ) {
                 if ($file["error"][$i] > 0) {
                     $inf = "Return Code: " . $file["error"][$i] . "<br />";
-                    report($inf);
+                    echo $inf;
                     exit;
                 } else {
-                    $inf = "Upload: " . $file["name"][$i] . "<br />" .
-                        "Type: " . $file["type"][$i] . "<br />" . "Size: " .
-                        ($file["size"][$i] / 1024) . " Kb<br />" .
-                        "Temp file: " . $file["tmp_name"][$i] . "<br />";
                     $img_name = $_POST['g_id'] . '_' . md5($file["name"][$i]) . '.jpg';
                     $img_md5=md5_file($file["tmp_name"][$i]);
                     if ($uploader->checkFileMd5($img_md5)) {
@@ -64,15 +52,15 @@ if(isset($_SESSION['login'])) {
                         move_uploaded_file($file["tmp_name"][$i],
                            '../'. $url);
                     }
-                        $excu->bindValue(':id', $_POST['g_id']);
-                        $excu->bindValue(':url', $url);
-                        $excu->bindValue(':remark',md5_file("../g_img/" . $img_name));
-                        $excu->execute();
-                        header("Content-Type:text/html;charset=utf-8");
+                    $row=array('g_id'=>$_POST['g_id'],'url'=>$url,'remark'=>md5_file("../g_img/" . $img_name));
+                    $insertArray[]=$row;
+
                 }
             }
 
         }
+        header("Content-Type:text/html;charset=utf-8");
+        pdoBatchInsert('g_image_tbl',$insertArray);
     }
     $g_id = $_POST['g_id'];
     header('location:index.php?goods-config=1&g_id=' . $g_id);

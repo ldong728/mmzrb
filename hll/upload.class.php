@@ -87,7 +87,6 @@ class uploader
 //        mylog(getArrayInf($file));
 //        mylog($file['tmp_name']);
         if ( !$file ) {
-            mylog('filefield:'. $this->fileField);
             $this->stateInfo = $this->getStateInfo( 'POST' );
             return;
         }

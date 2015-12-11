@@ -28,14 +28,6 @@ $smq=$_SESSION['smq'];
             </label>
         </div>
         <div>
-            <label for="inf">介绍：
-                <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
-    <p>这里我可以写一些输入提示</p>
-</script>
-            </label>
-        </div>
-        <div>
-
         </div>
         <div>
             <label for="sale">销售价：
@@ -60,12 +52,12 @@ $smq=$_SESSION['smq'];
 
     <!--style给定宽度可以影响编辑器的最终宽度-->
 <!--    <link href="../uedit/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">-->
-    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>
-
-    <script type="text/javascript">
-        var um = UM.getEditor('myEditor');
-
-    </script>
+<!--    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>-->
+<!--    <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>-->
+<!---->
+<!--    <script type="text/javascript">-->
+<!--        var um = UM.getEditor('myEditor');-->
+<!---->
+<!--    </script>-->
 
 </div>

@@ -133,49 +133,10 @@ if(isset($_SESSION['login'])) {
                 $back['img'][]=$imgrow;
             }
             $jsonBack=json_encode($back,JSON_UNESCAPED_UNICODE);
+//            mylog($jsonBack);
             echo $jsonBack;
             exit;
 
-//            $back = '<form action="consle.php" method="post">
-//                <div>
-//                <label for ="name">名称
-//                    <input id = "name" type = "text" name="name" value ="' . $goodsInf['name'] . '"/>
-//                </label>
-//                </div>
-//                <div>
-//                <label for = "inf">介绍：
-//                    <textarea id = "g_inf" name = "g_inf" rows = "15" cols = "80">
-//                        ' . $goodsInf['inf'] . '
-//                    </textarea>
-//                </label>
-//                </div>
-//                <input type="hidden"name="alter"value="1"/>
-//                <input type="hidden"name="g_id"value="' . $_POST['g_id'] . '"/>
-//                <button>提交修改信息</button>
-//                </form>
-//                ';
-            $detailContent = '<div id="category_block">';
-
-            while ($detailRow = $query->fetch()) {
-                $detailContent = $detailContent . '
-            <p>规格：<input type="text" class="category" id="' . $detailRow['id'] . '"value="' . $detailRow['category'] . '"/>
-              售价：<input type="text" class="sale" id="' . $detailRow['id'] . '"value="' . $detailRow['sale'] . '"/>
-              批发价：<input type="text" class="wholesale" id="' . $detailRow['id'] . '"value="' . $detailRow['wholesale'] . '"/>
-              <a href="consle.php?del_detail_id=' . $detailRow['id'] . '&g_id=' . $_POST['g_id'] . '">删除此规格</a>
-              </p>
-            ';
-            }
-            $detailContent = $detailContent . '</div><div class="divButton"><p id="add_category">添加规格</p></div>';
-            $back = $back . $detailContent;
-            $img = pdoQuery('g_image_tbl', array('id', 'url', 'front_cover'), array('g_id' => $_POST['g_id']), null);
-            while ($imgrow = $img->fetch()) {
-                $ischeck = (1 == $imgrow['front_cover'] ? 'checked = true' : '');
-                $back = $back . '<input type="radio" name="is_cover"class="is_cover"value="' . $imgrow['id'] . '"' . $ischeck . '/>
-            <a href="delete.php?delimg=' . $imgrow['url'] . '&g_id=' . $_POST['g_id'] . '"><img class="demo" src= "../' . $imgrow['url'] . '" alt = "error" /></a>
-            ';
-            }
-            echo $back;
-            exit;
         }
 
     }
