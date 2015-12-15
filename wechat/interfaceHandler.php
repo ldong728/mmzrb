@@ -114,7 +114,7 @@ class interfaceHandler {
         curl_close($ch);
         return $data;
     }
-    public function postArrayAsJson($remote_server,$sArray){
+    public function postArrayByCurl($remote_server,$sArray){
         $remote_server=$this->replaceAccessToken($remote_server);
         $jsonData=json_encode($sArray,JSON_UNESCAPED_UNICODE);
         $data=$this->postJsonByCurl($remote_server,$jsonData);

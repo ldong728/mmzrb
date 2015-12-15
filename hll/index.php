@@ -30,12 +30,14 @@ if (isset($_SESSION['login'])) {
         exit;
     }
     if(isset($_GET['orders'])){
-        $query=pdoQuery('express_tbl',null,null,'');
+
+        $db=new DB(DB_NAME,DB_USER,DB_PSW);
+        $query=$db->pdoQuery('express_tbl',null,null,'');
         foreach ($query as $row) {
             $expressQuery[]=$row;
         }
 
-        $orderQuery=pdoQuery('order_view',null,array('stu'=>$_GET['orders']),'');
+        $orderQuery=$db->pdoQuery('order_view',null,array('stu'=>$_GET['orders']),'');
         printView('hll/view/orderManage.html.php','订单管理');
         exit;
     }

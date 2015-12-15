@@ -27,6 +27,7 @@ if(isset($_SESSION['login'])) {
         exit;
     }
     if (isset($_POST['category'])) {
+
         $insert = 'INSERT INTO `category_tbl`SET name = :iname, remark = :iremark ';
         $s = $pdo->prepare($insert);
         $s->bindValue(':iname', $_POST['category']);

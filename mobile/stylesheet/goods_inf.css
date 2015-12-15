@@ -16,7 +16,7 @@
 .baseInfo .pdDot .swiper-pagination-switch{display:inline-block; height:8px; width:8px; background-color:#dcdcdc; margin:0 4px; border-radius:100%;}
 .baseInfo .pdDot .swiper-active-switch{background-color:#0587f6;}
 .baseInfo .pd_info .pd_imgList{margin:15px 0; overflow:hidden;}
-.baseInfo .pd_info .pd_imgList li{margin:0 auto; width:200px; height:200px;}
+.baseInfo .pd_info .pd_imgList li{margin:0; width:200px; height:200px;}
 .baseInfo .pd_info .pd_imgList img{width:200px; height:200px; margin:0 auto; display:block;}
 .baseInfo .pd_info dl{margin-top:10px; overflow:hidden; position:relative;}
 .baseInfo .pd_info dl dt{float:left; clear:left; padding-bottom:10px; color:#999; line-height:18px; margin-right:5px;}

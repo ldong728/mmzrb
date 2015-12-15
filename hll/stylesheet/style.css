@@ -1,21 +1,22 @@
-body{
+body {
     margin: 5px 5% 5px 5%;
     background-color: #f5f5f5;
     font-family: "Microsoft YaHei", "Courier New", monospace;
 }
-.center{
+
+.center {
     text-align: center;
 }
 
-h1{
+h1 {
     font-size: 40px;
 }
 
-sup{
+sup {
     font-size: 22px;
 }
 
-ul{
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -23,11 +24,11 @@ ul{
     padding-bottom: 6px;
 }
 
-nav ul li{
+nav ul li {
     display: inline;
 }
 
-a:link, a:visited{
+a:link, a:visited {
     font-weight: bold;
     color: #666666;
     background-color: #f5f5f5;
@@ -37,17 +38,17 @@ a:link, a:visited{
     text-transform: uppercase;
 }
 
-a:hover, a:active{
+a:hover, a:active {
     background-color: #ccc;
 }
 
-nav{
+nav {
     font-size: 15px;
     height: 22px;
     margin: 10px 0 10px 0;
 }
 
-button{
+button {
     font-size: 18px;
     width: 50%;
     border: none;
@@ -58,40 +59,46 @@ button{
     background-color: #f5f5f5;
 }
 
-button:hover{
+button:hover {
     background-color: #ccc;
 }
-div.divButton{
+
+div.divButton {
     border-style: solid;
     text-align: center;
 }
-table tr td{
+
+table tr td {
     height: 20px;
     padding: 10px 25px 10px 25px;
     text-align: left;
 }
-img.demo{
+
+img.demo {
     width: 100px;
-    height:auto;
+    height: auto;
 }
-div.mobileView{
+
+div.mobileView {
     position: relative;
     float: left;
     /*width: 500px;*/
     /*max-height: 800px;*/
     /*overflow: hidden;*/
 }
-iframe{
-    width:480px;
+
+iframe {
+    width: 480px;
     height: 800px;
     /*zoom:50%*/
 }
-div.orderView{
+
+div.orderView {
     position: relative;
 
-
 }
-div.orderItem{
+
+div.orderItem {
     position: relative;
     width: 100%;
     border: solid;
@@ -99,11 +106,46 @@ div.orderItem{
     /*float:left;*/
 
 }
-.orderView .hiddenContent{
+
+.orderView .hiddenContent {
     display: none;
 }
-.orderView .address{
+
+.orderView .address {
     width: 60%;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
+}
+
+
+
+/*/促销管理页面*/
+.css_tr {
+    border: solid,none,none,;
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+.css_td {
+    float: left;
+    /*display: inline;*/
+    min-width: 10%;
+    min-height: 60px;
+    width: 14%
+}
+#inPromotions{
+    /*color: #0660e7;*/
+    border: solid;
+    margin: 2px;
+    border-width: thin;
+    border-color: #00a213;
+}
+
+#notInPromotions {
+    clear: left;
+}
+
+.proGoodsName {
+    font-size: 12px;
 }
 

@@ -10,13 +10,13 @@
                 sc_id: $("#sc_id option:selected").val()
             }, function (data) {
                 $('#promotions_tbl').empty();
-                $('#promotions_tbl').append('<tr><td>品名</td><td>规格名</td><td>售价</td><td>操作</td></tr>');
+                $('#promotions_tbl').append('<div class="css_tr"><div class="css_td">品名</div><div class="css_td">规格名</div><div class="css_td">售价</div><div class="css_td">操作</div></div>');
                 var list = eval('(' + data + ')');
                 $.each(list, function (id, value) {
-                    $('#promotions_tbl').append('<tr><td><a href=index.php?goods-config=1&g_id='+value['g_id']+'>' + value['name'] + '</a></td><td>'
-                    + value['category'] + '</td><td>'
-                    + value['sale'] + '</td><td>'
-                    +'<a href="consle.php?start_promotions=1&g_id='+value['g_id']+'&d_id='+value['d_id']+'">进行促销</a></td></tr>');
+                    $('#promotions_tbl').append('<div class="css_tr"><div class="css_td"><a href=index.php?goods-config=1&g_id='+value['g_id']+'>' + value['name'] + '</a></div><div class="css_td">'
+                    + value['category'] + '</div><div class="css_td">'
+                    + value['sale'] + '</div><div class="css_td">'
+                    +'<a href="consle.php?start_promotions=1&g_id='+value['g_id']+'&d_id='+value['d_id']+'">进行促销</a></div></div>');
                 });
             });
         });
@@ -45,16 +45,16 @@
     });
     var reflashPromotion=function(filteStr){
         $('#on_promotions').empty();
-        $('#on_promotions').append('<tr><td>品名</td><td>规格名</td><td>售价</td><td>优惠价</td><td>开始日期</td><td>结束日期</td><td>操作</td></tr>');
+        $('#on_promotions').append('<div class="css_tr"><div class="css_td">品名</div><div class="css_td">规格名</div><div class="css_td">售价</div><div class="css_td">优惠价</div><div class="css_td">开始日期</div><div class="css_td">结束日期</div><div class="css_td">操作</div></div>');
         $.post('ajax_request.php',{time_filter:filteStr},function(data){
             var list = eval('(' + data + ')');
             $.each(list,function(id,value){
                 $('#on_promotions').append(
-                    '<tr><td><a href=index.php?goods-config=1&g_id='+value['id']+'>' + value['name'] + '</a></td><td>' + value['category'] + '</td><td>'+value['sale']+'</td><td>'
-                    +'<input class="price"id="'+value['id']+'"value="' + value['price'] + '"></td><td>'
-                    +'<input class="start_time"id="'+value['id']+'" type="datetime-local"value="'+value['start_time']+'"/></td><td>'
-                    +'<input class="end_time"id="'+value['id']+'" type="datetime-local"value="'+value['end_time']+'"/></td><td>'
-                    +'<a href="consle.php?delete_promotions=1&d_id='+value['d_id']+'">删除促销</a></td></tr>'
+                    '<div class="css_tr"><div class="css_td"><a class="proGoodsName" href=index.php?goods-config=1&g_id='+value['id']+'>' + value['name'] + '</a></div><div class="css_td">' + value['category'] + '</div><div class="css_td">'+value['sale']+'</div><div class="css_td">'
+                    +'<input class="price"id="'+value['id']+'"value="' + value['price'] + '"></div><div class="css_td">'
+                    +'<input class="start_time"id="'+value['id']+'" type="datetime-local"value="'+value['start_time']+'"/></div><div class="css_td">'
+                    +'<input class="end_time"id="'+value['id']+'" type="datetime-local"value="'+value['end_time']+'"/></div><div class="css_td">'
+                    +'<a href="consle.php?delete_promotions=1&d_id='+value['d_id']+'">删除促销</a></div></div>'
                 );
 
             });
@@ -62,7 +62,7 @@
 
     }
 </script>
-<div>
+<div id="inPromotions">
     <h3>促销列表</h3>
     <div>
         <input type="radio"name="time_filter" class="time_filter"value="all"checked="true"/>全部
@@ -70,13 +70,13 @@
         <input type="radio"name="time_filter" class="time_filter"value="after"/>已结束
         <input type="radio"name="time_filter" class="time_filter"value="before"/>未开始
     </div>
-    <table id="on_promotions" border="1">
+    <div class="css_table" id="on_promotions" border="1">
 
-    </table>
+    </div>
 </div>
 
 
-<div>
+<div id="notInPromotions">
     <h3>未促销商品</h3>
 
     <select class="filter" id="sc_id">
@@ -98,18 +98,18 @@
 
 
 <div id="goods_table">
-    <table id="promotions_tbl" border="1">
-        <tr>
-            <td>品名</td>
-            <td>规格名</td>
-            <td>售价</td>
-            <td>优惠价</td>
-            <td>开始日期</td>
-            <td>结束日期</td>
-            <td>操作</td>
-        </tr>
+    <div class="css_table" id="promotions_tbl" border="1">
+        <div class="css_tr">
+            <div class="css_td">品名</div>
+            <div class="css_td">规格名</div>
+            <div class="css_td">售价</div>
+            <div class="css_td">优惠价</div>
+            <div class="css_td">开始日期</div>
+            <div class="css_td">结束日期</div>
+            <div class="css_td">操作</div>
+        </div>
 
 
-    </table>
+    </div>
 
 </div>

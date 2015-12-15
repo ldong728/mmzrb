@@ -1,8 +1,6 @@
 <?php
-$db_name = 'gshop_db';
-
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=' . $db_name, 'gshopUser', 'cT9vVpxBLQaFQYrh');
+    $pdo = new PDO('mysql:host=localhost;dbname=' . DB_NAME, DB_USER,DB_PSW);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec('SET NAMES "utf8"');
 //    $pdo->q

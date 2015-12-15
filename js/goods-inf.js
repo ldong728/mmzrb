@@ -50,7 +50,6 @@
         });
     });
     $(document).on('click', '#getGoodsInf', function () {
-        alert(g_id);
         $('#goodsInf').empty();
         $.post('ajax.php',{getGoodsInf:1,g_id:g_id},function(data){
             $('#goodsInf').append(data)

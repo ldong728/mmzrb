@@ -62,6 +62,12 @@ function getKFinf(){
     return $data;
 }
 
+function sendKFMessage($userId,$content){
+    $formatedContent=array('touser'=>$userId,'msgtype'=>'text','text'=>array('content'=>$content));
+    $data=$GLOBALS['mInterface']->postArrayByCurl('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN',$formatedContent);
+    return $data;
+}
+
 function uploadTempMedia($file, $type, $weixinId = 0)
 {
     $localSavePath = $GLOBALS['mypath'] . '/tmpmedia/' . $file['name'];

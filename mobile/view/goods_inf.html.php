@@ -125,5 +125,9 @@
     var number=parseInt($('#number').val());
 </script>
 <script src="../js/goods-inf.js"></script>
+<?php include 'templates/jssdkIncluder.php'?>
+<script>
+
+</script>
 </body>
 

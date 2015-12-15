@@ -108,6 +108,12 @@ if(isset($_SESSION['customerId'])){
         include 'view/favorite.html.php';
         exit;
     }
+    if(isset($_GET['linkKf'])){
+        include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
+        $respon=sendKFMessage($_SESSION['customerId'],'您好'.$_SESSION['userInf']['nickname'].'，有什么可以帮助你？');
+        header('location:index.php?rand='.$_SESSION['rand']);
+        exit;
+    }
 }
 
 
@@ -115,13 +121,18 @@ if(isset($_SESSION['customerId'])){
 if(isset($_GET['oauth'])){
     include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
     if($_GET['code']){
+        mylog('getCode');
         $userId=getOauthToken($_GET['code']);
+        mylog('getOpenId'.$userId['openid']);
         $_SESSION['customerId']=$userId['openid'];
         $_SESSION['userInf']=getUnionId($userId['openid']);
-        $rand=rand(1000,9999);
-        header('location:index.php?rand='.$rand);
-        exit;
+    }else{
+        mylog('cannot get Code');
     }
+    $rand=rand(1000,9999);
+    $_SESSION['rand']=$rand;
+    header('location:index.php?rand='.$rand);
+    exit;
     echo 'ok';
 
 }
