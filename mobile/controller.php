@@ -145,7 +145,7 @@ if(isset($_GET['getList'])){
     if(isset($_GET['name'])){
         $end=(null!=$where?' and name like "%'.$_GET['name'].'%"': ' where name like "%'.$_GET['name'].'%"').$end;
     }
-    $query=pdoQuery('(select * from user_tmp_list_view order by price asc) p',null,$where,$end);
+    $query=pdoQuery('(select * from user_list_view order by price asc) p',null,$where,$end);
     include 'view/list.html.php';
 
 

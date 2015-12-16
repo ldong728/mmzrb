@@ -9,6 +9,7 @@ if(isset($_SESSION['login'])) {
         echo json_encode($row);
         exit;
     }
+    //更改规格的名称售价
     if (isset($_POST['changeCategory'])) {
         pdoUpdate('g_detail_tbl', array('category' => $_POST['value']), array('id' => $_POST['d_id']));
         echo 'category update ok';
@@ -24,6 +25,12 @@ if(isset($_SESSION['login'])) {
     if (isset($_POST['changeWholesale'])) {
         pdoUpdate('g_detail_tbl', array('wholesale' => $_POST['value']), array('id' => $_POST['d_id']));
         echo 'wholesale update ok';
+        exit;
+    }
+    //更改种类名称
+    if(isset($_POST['alterCategory'])){
+        pdoUpdate('g_inf_tbl',array('sc_id'=>$_POST['alterCategory']),array('id'=>$_POST['g_id']));
+        echo 'ok';
         exit;
     }
     if (isset($_POST['set_cover_id'])) {
@@ -121,7 +128,7 @@ if(isset($_SESSION['login'])) {
 
     }
     if (isset($_POST["g_id"])) {
-        $query = pdoQuery('g_inf_tbl', array('name', 'inf'), array('id' => $_POST['g_id']), ' limit 1');
+        $query = pdoQuery('g_inf_tbl', array('name', 'inf','situation'), array('id' => $_POST['g_id']), ' limit 1');
         if ($goodsInf = $query->fetch()) {
             $back['goodsInf']=$goodsInf;
             $query = pdoQuery('g_detail_tbl', array('id', 'category', 'sale', 'wholesale'), array('g_id' => $_POST['g_id']), null);

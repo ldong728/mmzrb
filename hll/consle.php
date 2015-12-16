@@ -49,13 +49,7 @@ if(isset($_SESSION['login'])) {
     }
     if (isset($_POST['alter'])) {
         pdoUpdate('g_inf_tbl',array('name'=>$_POST['name'],'inf'=>addslashes($_POST['g_inf'])),array('id'=>$_POST['g_id']));
-//        $insert = 'UPDATE g_inf_tbl SET name=:name,inf = :inf WHERE id = ' . $_POST['g_id'];
-//        $s = $pdo->prepare($insert);
-//        $s->bindValue(':name', $_POST['name']);
-//        $s->bindValue(':inf', addslashes($_POST['g_inf']));
-//        $s->execute();
         $g_id = $_POST['g_id'];
-//        printView('hll/view/goods_edit.html.php', '货品修改');
         header('location:index.php?goods-config=1&g_id=' . $g_id);
         exit;
     }
@@ -99,5 +93,11 @@ if(isset($_SESSION['login'])) {
     }
     if(isset($_GET['imgUpdate'])){
         mylog('update');
+    }
+    if(isset($_GET['goodsSituation'])){
+        pdoUpdate('g_inf_tbl',array('situation'=>$_GET['goodsSituation']),array('id'=>$_GET['g_id']));
+        $g_id=$_GET['g_id'];
+        header('location:index.php?goods-config=1&g_id=' . $g_id);
+        exit;
     }
 }

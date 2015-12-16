@@ -177,6 +177,11 @@ div.floor {
 
 a:link{
     color:#dcdcdc;
+    text-decoration: none
+}
+a:visited{
+    color:#dcdcdc;
+    text-decoration: none
 }
 
 

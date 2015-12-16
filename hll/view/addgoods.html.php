@@ -10,7 +10,7 @@ $smq=$_SESSION['smq'];
                 新商品登录
             </p>
             <select name="sc_id">
-                <option value="0">分类</option>
+                <option value="-1">分类</option>
                 <?php foreach ($smq as $r): ?>
                     <option value="<?php echo $r['id'] ?>"><?php htmlout($r['name']) ?></option>
                 <?php endforeach; ?>

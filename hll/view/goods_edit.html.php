@@ -13,19 +13,17 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
     var mi=
         <?php echo '"'.$m_i.'"' ?>;
 </script>
-<div id="temp">
-
-
-</div>
+<div class="editWrap">
 
 
     <div>
         商品修改
     </div>
-    <div>
+    <div class="filter">
 
         <select id = "sc_id">
             <option value = "0">分类</option>
+            <option value = "-1">未分类</option>
             <?php foreach ($_SESSION['smq'] as $r): ?>
                 <option value = "<?php echo $r['id'] ?>"><?php  htmlout($r['name']) ?></option>
             <?php endforeach; ?>
@@ -39,8 +37,19 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
         </select>
 
         <select id = "g_name" name = "g_name"></select>
+
+        <label id ="changeCategory"style="display: none">更改分类为
+            <select id="changeSc">
+                <option value = "-1">未分类</option>
+                <?php foreach ($_SESSION['smq'] as $r): ?>
+
+                    <option value = "<?php echo $r['id'] ?>"><?php  htmlout($r['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </label>
     </div>
     <div id = "g_inf"style="display: none">
+
 
         <form action="consle.php" method="post">
             <div>
@@ -73,9 +82,12 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
             <input type="submit" name="sub" value="上传图片" onclick="return Check()" />
             <input type="reset" name="res" value="重填" />
         </form>
+        <div id="changeSituation">
 
+        </div>
 
     </div>
+</div>
 <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="../uedit/umeditor.min.js"></script>
 <script type="text/javascript">

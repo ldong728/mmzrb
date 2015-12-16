@@ -115,24 +115,36 @@ div.orderItem {
     width: 60%;
     border: 1px solid #ccc;
 }
+/*/货品修改页面*/
+#changeSituation{
+    margin: 10px;
+}
 
 
 
 /*/促销管理页面*/
 .css_tr {
-    border: solid,none,none,;
+    border-top: solid;
+    border-width: thin;
     position: relative;
     width: 100%;
-    height: 100px;
+    height: auto;
+    overflow: hidden;
 }
 
 .css_td {
     float: left;
     /*display: inline;*/
+    border-right: solid;
+    border-width: thin;
     min-width: 10%;
     min-height: 60px;
     width: 14%
 }
+.css_td input{
+    width: 95%;
+}
+
 #inPromotions{
     /*color: #0660e7;*/
     border: solid;
