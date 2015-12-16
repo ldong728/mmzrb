@@ -43,12 +43,32 @@
         });
     </script>
     <nav class="main-nav">
-        <a href="#searchPage" data-rel="dialog" class="nav-link">
-            <i class="cate-icon search"></i>
+        <a href="controller.php?getList=1&father_id=6" class="nav-link">
+            <i class="cate-icon2 grhl"></i>
 
-            <p class="nav-text">搜索</p>
+            <p class="nav-text">个人护理</p>
         </a>
-        <a data-ajax="false" href="controller.php?getCart=1" class="nav-link">
+        <a href="controller.php?getList=1&father_id=5" class="nav-link">
+            <i class="cate-icon2 ytyp"></i>
+
+            <p class="nav-text">婴童用品</p>
+        </a>
+        <a href="controller.php?getList=1&father_id=7" class="nav-link">
+            <i class="cate-icon2 hzp"></i>
+
+            <p class="nav-text">化妆品</p>
+        </a>
+        <a href="controller.php?getList=1&father_id=8" class="nav-link">
+            <i class="cate-icon2 jkyp"></i>
+
+            <p class="nav-text">健康用品</p>
+        </a>
+        <a href="controller.php?getList=1&father_id=11" class="nav-link">
+            <i class="cate-icon2 fzxm"></i>
+
+            <p class="nav-text">服装鞋帽</p>
+        </a>
+        <a href="controller.php?getCart=1" class="nav-link">
             <i class="cate-icon cart"></i>
 
             <p class="nav-text">购物车</p>
@@ -63,6 +83,11 @@
 
             <p class="nav-text">客服</p>
         </a>
+<!--        <a href="controller.php?linkKf=1" class="nav-link">-->
+<!--            <i class="cate-icon2 tempp"></i>-->
+<!---->
+<!--            <p class="nav-text">客服</p>-->
+<!--        </a>-->
     </nav>
     <div class="floor">
         <a class="rowleftimg" href="controller.php?goodsdetail=1&g_id=<?php echo $adList['rowleft'][0]['g_id']?>"><img src="../<?php echo $adList['rowleft'][0]['img_url']?>"/></a>

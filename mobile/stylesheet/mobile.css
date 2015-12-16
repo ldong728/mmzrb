@@ -84,14 +84,14 @@ header {
 .logo {
     position: absolute;
     z-index: 2;
-    height: 25px;
-    width: 50px;
+    height: 30px;
+    width: 60px;
     background: url(images/logo.png) no-repeat;
-    background-size: 50px auto;
+    background-size: 60px auto;
     background-position: center;
-    top: 13px;
+    top: 8px;
     left: 0;
-    margin: 0 8px;
+    margin: 0 3px;
 }
 .searchBox {
     margin-left: 66px;

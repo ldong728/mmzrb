@@ -220,12 +220,35 @@ div.floor {
 }
 
 .cate-icon {
+     width: 41px;
+     height: 41px;
+     display: block;
+     background: url(images/icon3.png) no-repeat;
+     background-size: 164px 82px;
+     margin: 0 auto;
+ }
+.cate-icon2 {
     width: 41px;
     height: 41px;
     display: block;
-    background: url(images/icon3.png) no-repeat;
-    background-size: 164px 82px;
+    background: url(images/cate2.png) no-repeat;
+    background-size: 205px 41px;
     margin: 0 auto;
+}
+.grhl{
+    background-position: 0 0;
+}
+.ytyp{
+    background-position: -41 0;
+}
+.hzp{
+    background-position: -82 0;
+}
+.jkyp{
+    background-position: -123 0;
+}
+.fzxm{
+    background-position: -164 0;
 }
 
 nav.main-nav {
