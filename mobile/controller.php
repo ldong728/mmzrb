@@ -8,6 +8,7 @@
 include_once '../includePackage.php';
 session_start();
 
+
 if(isset($_SESSION['customerId'])){
     if(isset($_GET['settleAccounts'])){
         $arr=getCartDetail($_SESSION['customerId']);
@@ -67,7 +68,7 @@ if(isset($_SESSION['customerId'])){
 //        exit;
         if(-1!=$_GET['addrId']) {
             $orderId = 'dy' . time() . rand(100, 999);  //订单号生成，低并发情况下适用
-            pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId']));
+            $total_fee=0;
             $arr = getCartDetail($_SESSION['customerId']);
             foreach ($arr['goodsList'] as $row) {
                 $readyInsert[] = array(
@@ -78,11 +79,13 @@ if(isset($_SESSION['customerId'])){
                     'price' => $row['price'],
                     'total' => $row['total']
                 );
+                $total_fee+=$row['total'];
             }
             if($readyInsert==null){
                 header('location:index.php');
                 exit;
             }
+            pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId'],'total_fee'=>$total_fee));
             pdoBatchInsert('order_detail_tbl', $readyInsert);
             pdoDelete('cart_tbl', array('c_id' => $_SESSION['customerId']));
             $orderStu = 0;
@@ -93,6 +96,7 @@ if(isset($_SESSION['customerId'])){
         exit;
     }
     if(isset($_GET['customerInf'])){
+        mylog('intoCustomerInf');
         include 'view/customer_inf.html.php';
         exit;
     }
@@ -103,17 +107,35 @@ if(isset($_SESSION['customerId'])){
         include 'view/order_detail.html.php';
         exit;
     }
+    if(isset($_GET['preOrderOK'])){
+        if(isset($_SESSION['userKey']['package'])){
+//            mylog($_SESSION['userKey']['package']);
+            $preSign=array(
+                'appId'=>APP_ID,
+                'timeStamp'=>time(),
+                'nonceStr'=>getRandStr(32),
+                'package'=>$_SESSION['userKey']['package'],
+                'signType'=>'MD5'
+            );
+            $sign=makeSign($preSign,KEY);
+            $preSign['paySign']=$sign;
+//            mylog('jsAPiPry:'.toXml($preSign));
+            include 'view/wxpay.html.php';
+        }else{
+            header('location:index.php');
+        }
+        exit;
+    }
     if(isset($_GET['getFav'])){
         $query=pdoQuery('user_fav_view',null,array('c_id'=>$_SESSION['customerId']),' group by g_id');
         include 'view/favorite.html.php';
         exit;
     }
-    if(isset($_GET['linkKf'])){
-        include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
-        $respon=sendKFMessage($_SESSION['customerId'],'您好'.$_SESSION['userInf']['nickname'].'，有什么可以帮助你？');
-        header('location:index.php?rand='.$_SESSION['rand']);
-        exit;
-    }
+//    if(isset($_GET['linkKf'])){
+//        include_once $GLOBALS['mypath'] . '/wechat/serveManager.php';
+//        linkKf($_SESSION['customerId']);
+//        exit;
+//    }
 }
 
 
@@ -121,9 +143,10 @@ if(isset($_SESSION['customerId'])){
 if(isset($_GET['oauth'])){
     include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
     if($_GET['code']){
-        mylog('getCode');
+//        mylog('getCode');
         $userId=getOauthToken($_GET['code']);
-        mylog('getOpenId'.$userId['openid']);
+//        mylog(getArrayInf($userId));
+//        mylog('getOpenId'.$userId['openid']);
         $_SESSION['customerId']=$userId['openid'];
         $_SESSION['userInf']=getUnionId($userId['openid']);
     }else{
@@ -131,6 +154,7 @@ if(isset($_GET['oauth'])){
     }
     $rand=rand(1000,9999);
     $_SESSION['rand']=$rand;
+//    mylog('oauthOk');
     header('location:index.php?rand='.$rand);
     exit;
     echo 'ok';

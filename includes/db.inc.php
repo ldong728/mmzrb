@@ -41,10 +41,21 @@ function pdoQuery($tableName, $fields, $where, $append)
         $j = 0;
         foreach ($where as $k => $v) {
             if($v==null){
+                $sql.=$k.' in("-1000000")';
                 $j++;
                 continue;
             }
-            $sql = $sql . $k . '=' . '"' . $v . '"';
+
+            if(is_array($v)){
+                $sql.=$k.' in(';
+                foreach ($v as $d) {
+                    $sql.='"'.$d.'",';
+                }
+                $sql=trim($sql,',');
+                $sql.=')';
+            }else{
+                $sql = $sql . $k . '=' . '"' . $v . '"';
+            }
             if ($j < $whereCount - 1) $sql = $sql . ' AND ';
             $j++;
         }
@@ -52,8 +63,8 @@ function pdoQuery($tableName, $fields, $where, $append)
     if($append!=null){
         $sql=$sql.' '.$append;
     }
-//    mylog('sql:'.$sql);
     try {
+//        mylog('query:'.$sql);
         $query = $GLOBALS['pdo']->query($sql);
         return $query;
     }catch (PDOException $e) {
@@ -90,15 +101,19 @@ function pdoInsert($tableName,$value,$str=''){
     $sql='INSERT INTO '.$tableName.' SET ';
     $j = 0;
     $valueCount=count($value);
+    $data='';
     foreach ($value as $k => $v) {
-        $sql = $sql . $k . '=' . '"' . $v . '"';
-        if ($j < $valueCount - 1) $sql = $sql . ',';
+       $data .= $k . '=' . '"' . $v . '"';
+        if ($j < $valueCount - 1) $data = $data . ',';
         $j++;
     }
     if($str=='ignore'){
         $sql=preg_replace('/INTO/',$str,$sql);
+        $sql.=$data;
+    }elseif($str=='update'){
+        $sql.=$data.' on DUPLICATE KEY update '.$data;
     }else{
-        $sql=$sql.$str;
+        $sql=$sql.$data.$str;
     }
 //    mylog($sql);
     try {
@@ -107,7 +122,7 @@ function pdoInsert($tableName,$value,$str=''){
 
     }catch (PDOException $e) {
         $error = 'Unable to insert to the database server.' . $e->getMessage();
-        include 'error.html.php';
+        return $error;
         exit();
     }
 
@@ -184,6 +199,11 @@ function pdoDelete($tableName,array $where,$str=''){
     }
 
 }
+
+//function addCol($tableName,array $colInf){
+//    $sql='ALTER TABLE '.$tableName .'ADD ';
+//
+//}
 function outerJoinStr($joinType,$fields,$tables,$joinField,$where,$group)
 {
     $sql = 'SELECT ';
@@ -244,8 +264,9 @@ function outerJoinQuery($joinType,$fields,$tables,$joinField,$where,$group){
 function pdoBatchInsert($tableName,array $value,$str=''){
     $sql='INSERT INTO '.$tableName.' SET ';
     $j = 0;
-    $valueCount=count($value[0]);
-    foreach ($value[0] as $k => $v) {
+    $v1=reset($value);
+    $valueCount=count($v1);
+    foreach ($v1 as $k => $v) {
         $sql = $sql . $k . '=' . ':' . $k ;
         if ($j < $valueCount - 1) $sql = $sql . ',';
         $j++;

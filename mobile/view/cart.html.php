@@ -73,7 +73,7 @@
            var id=$(this).attr('id');
             var button=id.slice(0,4);
             var d_id=id.slice(4);
-            var currentNum = parseInt($('#number'+d_id).val());
+            var currentNum = parseFloat($('#number'+d_id).val());
             if('mins'==button){
                 if(currentNum>1){
                     currentNum--;
@@ -105,7 +105,7 @@
     var flushPrice=function(){
         var price=0;
         $('li').each(function(){
-            var subTotal=parseInt($(this).find('.real-price').text())*parseInt($(this).find('.count').val());
+            var subTotal=parseFloat($(this).find('.real-price').text())*parseFloat($(this).find('.count').val());
             $(this).find('.sub-total-price').empty();
             $(this).find('.sub-total-price').append('¥'+subTotal);
             price+=subTotal;

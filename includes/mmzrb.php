@@ -5,6 +5,13 @@
  * Date: 2015/11/3
  * Time: 23:20
  */
+
+function printView($addr,$title='abc'){
+    $mypath= $GLOBALS['mypath'];
+    include $mypath.'/admin/templates/header.html.php';
+    include $mypath.'/'.$addr;
+    include $mypath.'/admin/templates/footer.html.php';
+}
 function init()
 {
     $sub_cg = pdoQuery('category_overview_view', null, null, '');
@@ -25,7 +32,7 @@ function init()
     $_SESSION['smq'] = $smq;
 }
 function getOrderStu($index){
-    $list=array('待付款','已付款','已发货','已完成','异常','退款中','退货中','已取消','已过期');
+    $list=array('待付款','已付款','已发货','已完成','异常','退款中','退货中','已取消','已过期','处理中');
     return $list[$index];
 }
 function getProvince($pro){

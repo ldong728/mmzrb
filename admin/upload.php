@@ -2,6 +2,7 @@
 include_once '../includePackage.php';
 include_once 'upload.class.php';
 session_start();
+//mylog('include upload');
 if(isset($_SESSION['login'])) {
     $uploader= new uploader();
     if (isset($_POST['altAd'])) {
@@ -20,6 +21,7 @@ if(isset($_SESSION['login'])) {
         exit;
     }
     if (isset($_GET['infImgUpload'])){
+//        mylog('isUpload');
         $file=$_FILES['upfile'];
         $uploader->upFile(time().rand(1000,9999));
         $inf=$uploader->getFileInfo();
@@ -49,8 +51,12 @@ if(isset($_SESSION['login'])) {
                         $url=$uploader->getUrl();
                     } else {
                         $url="g_img/" . $img_name;
-                        move_uploaded_file($file["tmp_name"][$i],
+                        $up=move_uploaded_file($file["tmp_name"][$i],
                            '../'. $url);
+//                        $a=$up? 'yes':'no';
+//                            echo $a;
+//                            exit;
+
                     }
                     $row=array('g_id'=>$_POST['g_id'],'url'=>$url,'remark'=>md5_file("../g_img/" . $img_name));
                     $insertArray[]=$row;

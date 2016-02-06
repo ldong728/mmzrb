@@ -27,4 +27,16 @@
     <a class="orderSettle" id="readyToPay"href="#">付款</a>
     </div>
 </div>
+<script>
+    var order_id='<?php echo $orderId?>';
+    $('#readyToPay').click(function(){
+//        alert('send pre pay');
+        $.post('pay.php',{prePay:1,order_id:order_id},function(data){
+            if('ok'==data){
+                window.location.href='controller.php?preOrderOK=1';
+            }
+        });
+//        alert('please wait');
+    });
+</script>
 </body>

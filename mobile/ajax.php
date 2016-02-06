@@ -65,6 +65,12 @@ if(isset($_SESSION['customerId'])){
         echo 'ok';
         exit;
     }
+    if(isset($_POST['linkKf'])){
+        include_once $GLOBALS['mypath'] . '/wechat/serveManager.php';
+        $response=linkKf($_SESSION['customerId']);
+        echo $response;
+        exit;
+    }
 
 }
 
@@ -82,11 +88,11 @@ if(isset($_POST['getdetailprice'])){
 
 }
 if(isset($_POST['getGoodsInf'])){
-    mylog('requestRecieve,g_id:'.$_POST['g_id']);
+//    mylog('requestRecieve,g_id:'.$_POST['g_id']);
     $query=pdoQuery('g_inf_tbl',array('inf'),array('id'=>$_POST['g_id']),' limit 1');
     $row=$query->fetch();
     echo $row['inf'];
-    mylog('inf:'.$row['inf']);
+//    mylog('inf:'.$row['inf']);
     exit;
 }
 if(isset($_POST['addToCart'])){

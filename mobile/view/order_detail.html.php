@@ -79,14 +79,13 @@
                 </span></span></div>
             <?php if($order_inf['stu']==0){
                 echo ' <div class="order_btn">
-                <a class="btn_orange payOrder" href="#" oid="976487" ono="40949609964071528">
+                <a class="btn_orange payOrder" href="#">
                     立即付款
                 </a>
                 <a class="btn_white cansel_btn" oid="976487" href="#">
                     取消订单
                 </a>
             </div>';
-
 }?>
 
         </div>

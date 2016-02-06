@@ -18,13 +18,14 @@ $signPackage = $jssdk->GetSignPackage();
         signature: '<?php echo $signPackage["signature"];?>',
         jsApiList: [
             'hideOptionMenu',
-            'scanQRCode',
-            'getLocation',
-            'openLocation',
-            'onMenuShareTimeline'
+            'chooseImage',
+            'uploadImage',
+            'chooseWXPay'
         ]
     });
 //    wx.ready(function(){
+
+//        alert()
 //        wx.hideOptionMenu();
 //        wx.scanQRCode({
 //            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，

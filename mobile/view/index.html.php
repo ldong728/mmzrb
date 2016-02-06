@@ -53,10 +53,10 @@
 
             <p class="nav-text">婴童用品</p>
         </a>
-        <a href="controller.php?getList=1&father_id=7" class="nav-link">
+        <a href="controller.php?getList=1&father_id=9" class="nav-link">
             <i class="cate-icon2 hzp"></i>
 
-            <p class="nav-text">化妆品</p>
+            <p class="nav-text">食品百货</p>
         </a>
         <a href="controller.php?getList=1&father_id=8" class="nav-link">
             <i class="cate-icon2 jkyp"></i>
@@ -73,12 +73,16 @@
 
             <p class="nav-text">购物车</p>
         </a>
-        <a href="controller.php?customerInf=1" class="nav-link">
+        <a href="controller.php?customerInf=1" class="nav-link"id="temp">
             <i class="cate-icon user"></i>
 
             <p class="nav-text">个人中心</p>
         </a>
-        <a href="controller.php?linkKf=1" class="nav-link">
+        <script>
+            $('#temp').click(function(){
+            })
+        </script>
+        <a href="#" class="nav-link toKf">
             <i class="cate-icon kf"></i>
 
             <p class="nav-text">客服</p>
@@ -133,7 +137,7 @@
         <a class="prodMore"href="#">查看更多</a>
     </div>
     <div class="contactBox">
-        <a class="phone"href="1234">联系电话：1234567890</a>
+<!--        <a class="phone"href="1234">联系电话：1234567890</a>-->
     </div>
 
 
@@ -153,6 +157,25 @@
 //            }
 //        });
     })
+</script>
+<script>
+    $('.toKf').click(function(){
+        $.post('ajax.php',{linkKf:1},function(data){
+            if(0==data){
+                alert('客服已接通，请关闭当前页面以便与客服交流');
+            }
+            if(1==data){
+                alert('客服不在线或者忙碌中，请稍候再试');
+            }
+            if(2==data){
+                alert('当前无在线客服，请稍候再试');
+            }
+
+        })
+
+//        alert('haha');
+
+    });
 </script>
 </body>
 

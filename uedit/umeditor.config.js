@@ -137,7 +137,7 @@
         UMEDITOR_HOME_URL : "../uedit/"
 
         //图片上传配置区
-        ,imageUrl:"../hll/upload.php?infImgUpload=1"             //图片上传提交地址
+        ,imageUrl:"../admin/upload.php?infImgUpload=1"             //图片上传提交地址
         ,imagePath:URL                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         ,imageFieldName:"abcd"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
 

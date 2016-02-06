@@ -23,11 +23,18 @@ function createButtonTemp()
 //    $mainButton = array('button' => array($button1, $button2, $button3));
     $url='https://open.weixin.qq.com/connect/oauth2/authorize?'
     .'appid='.APP_ID
-    .'&redirect_uri='.urlencode('http://115.29.202.69/gshop/mobile/controller.php?oauth=1')
+    .'&redirect_uri='.urlencode('http://'.$_SERVER['HTTP_HOST'].'/'.DOMAIN.'/mobile/controller.php?oauth=1')
     .'&response_type=code&scope=snsapi_base'
     .'&state=123#wechat_redirect';
     $button1=array('type'=>'view','name'=>'网上商城','url'=>$url);
-    $mainButton=array('button'=>array($button1));
+    $button2sub1=array('type'=>'click','name'=>'微信下单减5元','key'=>'wxpromotion');
+    $button2sub2=array('type'=>'click','name'=>'新年抢红包','key'=>'hongbao');
+    $button2=array('name'=>'粉丝福利','sub_button'=>array($button2sub1,$button2sub2));
+    $button3sub1=array('type'=>'click','name'=>'在线客服','key'=>'kf');
+    $button3sub2=array('type'=>'click','name'=>'商业合作','key'=>'copration');
+    $button3sub3=array('type'=>'click','name'=>'我的文章','key'=>'artical');
+    $button3=array('name'=>'我的','sub_button'=>array($button3sub1,$button3sub2,$button3sub3));
+    $mainButton=array('button'=>array($button1,$button2,$button3));
     $jsondata = json_encode($mainButton,JSON_UNESCAPED_UNICODE);
 //    mylog($jsondata);
     $response = $GLOBALS['mInterface']->postJsonByCurl('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN', $jsondata);
@@ -60,6 +67,61 @@ function createNewKF($account_name, $name, $psw)
 function getKFinf(){
     $data=$GLOBALS['mInterface']->getByCurl('https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=ACCESS_TOKEN');
     return $data;
+}
+function getOnlineKfList(){
+    $data=$GLOBALS['mInterface']->getByCurl('https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token=ACCESS_TOKEN');
+    return $data;
+}
+function chooseKF($kf='default'){
+    $inf=getOnlineKfList();
+    $inf=json_decode($inf,true);
+    $return='ok';
+    if(count($inf['kf_online_list'])>0){
+        $linkNum=100;
+        $kfAc='';
+        foreach ($inf['kf_online_list'] as $row) {
+            if($linkNum>$row['accepted_case']){
+                $linkNum=$row['accepted_case'];
+                $kfAc=$row['kf_account'];
+            }
+        }
+        $kfAc=$kf=='default'? $kfAc:$kf;
+    }else{
+        $kfAc=false;
+    }
+    return $kfAc;
+}
+function connectKF($openId,$kfAc,$remark){
+    $linkinf=array(
+        'kf_account'=>$kfAc,
+        'openid'=>$openId,
+        'text'=>$remark
+    );
+    $request=$GLOBALS['mInterface']->postArrayByCurl('https://api.weixin.qq.com/customservice/kfsession/create?access_token=ACCESS_TOKEN',$linkinf);
+    return $request;
+}
+
+function linkKf($openId,$kf='default',$remark='用户从网页接入'){
+    $inf=getOnlineKfList();
+    $inf=json_decode($inf,true);
+    $return=0;
+    if($kfAc=chooseKF($kf)){
+        $request=connectKF($openId,$kfAc,$remark);
+        $request=json_decode($request,true);
+        if($request['errcode']==0){
+            sendKFMessage($openId,'已为您接入人工客服，请稍候');
+        }else{
+            sendKFMessage($openId,'客服不在线或者忙碌中，请稍候再试');
+            $return=1;
+        }
+
+    }else{
+        sendKFMessage($openId,'当前无在线客服，请稍候再试');
+        $return=2;
+    }
+    return $return;
+
+
 }
 
 function sendKFMessage($userId,$content){
@@ -100,6 +162,7 @@ function getUnionId($openId)
 function getOauthToken($code){
     $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.APP_ID.'&secret='.APP_SECRET.'&code='.$code.'&grant_type=authorization_code';
     $jsonData=$GLOBALS['mInterface']->getByCurl($url);
+
     return json_decode($jsonData,true);
 }
 
@@ -144,6 +207,38 @@ function reflashAutoReply()
 
 
 }
+function requestTemplate($templateId){
+    $data=array('template_id_short'=>$templateId);
+    $data=json_encode($data);
+    $re=$GLOBALS['mInterface']->postJsonByCurl('https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=ACCESS_TOKEN',$data);
+    $re=json_decode($re,true);
+    if($re['errcode']==0){
+        return $re['template_id'];
+    }else{
+        return false;
+    }
+}
+
+function sendTemplateMsg($customerId,$templateId,$url,array $msg){
+    $fullMsg=array(
+        'touser'=>$customerId,
+        'template_id'=>$templateId,
+        'url'=>$url,
+
+        'data'=>$msg
+
+//            array(
+//            'first'=>array('value'=>'交易成功'),
+//            'product'=>array('value'=>'测试商品1'),
+//            'price'=>array('value'=>'1988.00'),
+//            'time'=>array('value'=>'1月9日16:00'),
+//            'remark'=>array('value'=>'欢迎再次选购'),
+//        )
+    );
+    $response=$GLOBALS['mInterface']->postArrayByCurl('https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN',$fullMsg);
+    return $response;
+}
+
 
 function formatContent($type, $content)
 {

@@ -21,3 +21,12 @@ function showToast(str){
     $('.toast').fadeIn('fast')
     var t = setTimeout('$(".toast").fadeOut("slow")', 800);
 }
+function closeWindow(text){
+    if
+    (confirm(text)){
+        window.opener=null;
+        window.open('','_self');
+        window.close();
+    }
+    else{}
+}

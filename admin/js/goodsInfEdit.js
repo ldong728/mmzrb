@@ -64,6 +64,7 @@ function getGInf() {
         }else{
             var stub='<a href="consle.php?goodsSituation=0&g_id='+g_id+'">下架</a>'
         }
+        stub+='<a href="consle.php?deleteGoods=0&g_id='+g_id+'">删除</a>'
         $('#changeSituation').append(stub);
         $('#name').val(inf.goodsInf.name);
         if(null!=inf.goodsInf.inf) {

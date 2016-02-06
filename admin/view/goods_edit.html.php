@@ -30,10 +30,12 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
         </select>
 
         <select class = "country" id = "made_in">
-            <option value = "none"selected="selected">产地</option>
+            <option value = "none"selected="selected">国家</option>
             <option value = "us">美国</option>
             <option value = "de">德国</option>
             <option value = "jp">日本</option>
+            <option value="can">加拿大</option>
+            <option value="nld">荷兰</option>
         </select>
 
         <select id = "g_name" name = "g_name"></select>
@@ -83,7 +85,6 @@ $m_i=(isset($_GET['made_in'])? $_GET['made_in']:-1);
             <input type="reset" name="res" value="重填" />
         </form>
         <div id="changeSituation">
-
         </div>
 
     </div>

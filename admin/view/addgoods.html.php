@@ -17,10 +17,12 @@ $smq=$_SESSION['smq'];
             </select>
 
             <select name="made_in">
-                <option value="null">产地</option>
+                <option value="null">国家</option>
                 <option value="us">美国</option>
                 <option value="de">德国</option>
                 <option value="jp">日本</option>
+                <option value="can">加拿大</option>
+                <option value="nld">荷兰</option>
             </select>
             <br/>
             <label for="g_name">名称：

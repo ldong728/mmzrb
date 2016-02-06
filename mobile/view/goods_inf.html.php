@@ -62,7 +62,7 @@
                     <dd class="cl_red"class="price"id="price">¥<?php echo (isset($default['price'])? $default['price'] : $default['sale'])?></dd>
                     <dd>
                         <del id="sale"><?php echo (isset($default['price'])? '¥'.$default['sale'] : '')?></del>
-                        <span class="payAfter">货到付款</span>
+<!--                        <span class="payAfter">货到付款</span>-->
                     </dd>
                     <dt>保障：</dt>
                     <dd>

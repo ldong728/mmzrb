@@ -8,7 +8,9 @@
 include_once '../includePackage.php';
 session_start();
 if(isset($_GET['c_id'])){
+    include_once $GLOBALS['mypath'].'/wechat/serveManager.php';
     $_SESSION['customerId']=$_GET['c_id'];
+    $_SESSION['userInf']=getUnionId($_SESSION['customerId']);
 }
 $config=getConfig('config/config.json');
 $categoryQuery=pdoQuery('category_tbl',array('id','name'),array('remark'=>'home'),' order by id asc limit 5');
@@ -23,7 +25,7 @@ foreach ($promotionQuery as $row) {
     if(!isset($proList[$row['father_id']])){
         $proList[$row['father_id']]=array();
     }
-    if(count($proList[$row['father_id']])>8){
+    if(count($proList[$row['father_id']])>9){
         continue;
     }else{
         $proList[$row['father_id']][]=$row;
