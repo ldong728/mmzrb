@@ -20,7 +20,8 @@ $signPackage = $jssdk->GetSignPackage();
             'hideOptionMenu',
             'chooseImage',
             'uploadImage',
-            'chooseWXPay'
+            'chooseWXPay',
+            'onMenuShareTimeline'
         ]
     });
 //    wx.ready(function(){

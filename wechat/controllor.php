@@ -14,7 +14,7 @@ if($msg['content']=='网店'){
     $myUrl='您的网店入口为http://'.$_SERVER['HTTP_HOST'].'/'.DOMAIN.'/mobile/?c_id='.$msg['from'].'&#38;rand='.$random.'请勿转发此网址，否则可能导致个人信息泄露';
     $weixin->replytext($myUrl);
 }else{
-    $weixin->replytext('欢迎访问animee海外购公众服务号');
+    $weixin->replytext('欢迎访问anmiee海外购公众服务号');
 }
 
 

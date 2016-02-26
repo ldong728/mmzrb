@@ -96,7 +96,7 @@ if(isset($_SESSION['customerId'])){
         exit;
     }
     if(isset($_GET['customerInf'])){
-        mylog('intoCustomerInf');
+//        mylog('intoCustomerInf');
         include 'view/customer_inf.html.php';
         exit;
     }
@@ -105,6 +105,13 @@ if(isset($_SESSION['customerId'])){
         $order_inf=$orderQuery->fetch();
         $ordeDetailQuery=pdoQuery('user_order_view',null,array('o_id'=>$_GET['id']),'');
         include 'view/order_detail.html.php';
+        exit;
+    }
+    if(isset($_GET['pay_order'])){
+        $orderId=$_GET['order_id'];
+        $orderStu=$_GET['order_stu'];
+        $total_fee=$_GET['total_fee'];
+        include 'view/order_inf.html.php';
         exit;
     }
     if(isset($_GET['preOrderOK'])){
@@ -154,6 +161,11 @@ if(isset($_GET['oauth'])){
     }
     $rand=rand(1000,9999);
     $_SESSION['rand']=$rand;
+    if(isset($_GET['timeLineShare'])){
+        header('location:controller.php?goodsdetail=1&g_id='.$_GET['g_id']);
+        exit;
+    }
+
 //    mylog('oauthOk');
     header('location:index.php?rand='.$rand);
     exit;

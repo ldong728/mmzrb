@@ -54,22 +54,27 @@ if(isset($_SESSION['login'])) {
         exit;
     }
     if (isset($_POST['filtOrder'])){
-        pdoUpdate('order_tbl',array('stu'=>$_POST['stu'],'express_id'=>$_POST['express'],'express_order'=>$_POST['expressNumber']),
-            array('id'=>$_POST['filtOrder']));
-        if($_POST['stu']=='2'){
-            include_once '../wechat/serveManager.php';
-            $query=pdoQuery('user_express_query_view',null,array('id'=>$_POST['filtOrder']),' limit 1');
-            $inf=$query->fetch();
-            $templateArray=array(
-                'first'=>array('value'=>'您在anmiee海外购商城的网购订单已发货：'),
-                'keyword1'=>array('value'=>$inf['express_name'],'color'=>'#0000ff'),
-                'keyword2'=>array('value'=>$inf['express_order'],'color'=>'#0000ff'),
-                'remark'=>array('value'=>'请留意物流电话通知')
-            );
+        if(isset($_POST['express'])&&isset($_POST['expressNumber'])&&$_POST['expressNumber']!=''){
+            pdoUpdate('order_tbl',array('stu'=>$_POST['stu'],'express_id'=>$_POST['express'],'express_order'=>$_POST['expressNumber']),
+                array('id'=>$_POST['filtOrder']));
+            if($_POST['stu']=='2'){
+                include_once '../wechat/serveManager.php';
+                $query=pdoQuery('user_express_query_view',null,array('id'=>$_POST['filtOrder']),' limit 1');
+                $inf=$query->fetch();
+                $templateArray=array(
+                    'first'=>array('value'=>'您在anmiee海外购商城的网购订单已发货：'),
+                    'keyword1'=>array('value'=>$inf['express_name'],'color'=>'#0000ff'),
+                    'keyword2'=>array('value'=>$inf['express_order'],'color'=>'#0000ff'),
+                    'remark'=>array('value'=>'请留意物流电话通知')
+                );
 
-            sendTemplateMsg($inf['c_id'],'xXdVKXbkja5RoxRxXxAPfL8SSZlePvgDCnw6ZSXakss','http://m.kuaidi100.com/index_all.html?type='.$inf['express_id'].'&postid='.$inf['express_order'],$templateArray);
+                sendTemplateMsg($inf['c_id'],'xXdVKXbkja5RoxRxXxAPfL8SSZlePvgDCnw6ZSXakss','http://m.kuaidi100.com/index_all.html?type='.$inf['express_id'].'&postid='.$inf['express_order'],$templateArray);
 
+            }
+        }else{
+            pdoUpdate('order_tbl',array('total_fee'=>$_POST['total_fee']),array('id'=>$_POST['filtOrder']));
         }
+
         header('location:index.php?orders=1');
         exit;
     }

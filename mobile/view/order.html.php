@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="ordertotal">
-            <span class="realPay">实付款（含运费）：</span>
+            <span class="realPay">总价格：</span>
             <span class="payTotal">
                 <span class="cl_red">￥<?php echo $totalPrice?></span>
             </span>
@@ -65,3 +65,52 @@
     </div>
 </div>
 </body>
+<?php
+include_once '../wechat/interfaceHandler.php';
+include_once '../wechat/cardsdk.php';
+$card=new card();
+$sign=$card->getSignPackage("DISCOUNT CASH");
+?>
+<script>
+//    var from ='<?php //echo $from?>//';
+//    var addrId = <?php //echo $addr['id']?>//;
+    var totalPrice =<?php echo $totalPrice ?>;
+</script>
+<script>
+    var cardId=null;
+    var cardCode='none';
+    var save=0;
+    wx.ready(function(){
+        $('.card-button').click(function(){
+            wx.chooseCard({
+//                shopId: '', // 门店Id
+                cardType: '<?php echo $sign['cardType']?>', // 卡券类型
+//                cardId: '', // 卡券Id
+                timestamp: <?php echo $sign['timestamp']?>, // 卡券签名时间戳
+                nonceStr: '<?php echo $sign['nonceStr']?>', // 卡券签名随机串
+                signType: 'SHA1', // 签名方式，默认'SHA1'
+                cardSign: '<?php echo $sign['cardSign']?>', // 卡券签名
+                success: function (res) {
+                    var cardList= res.cardList; // 用户选中的卡券列表信息
+                    var cardInf=eval('('+cardList+')');
+                    $.post('ajax.php?chooseCard=1',{card_id:cardInf[0].card_id,encrypt_code:cardInf[0].encrypt_code,totalPrice:totalPrice},function(data){
+                        data=eval('('+data+')');
+                        $('.card_detail').empty();
+                        if(data.save<0){
+                            showToast('此券无法使用')
+                        }else{
+                            $('.card-detail').append('节省￥'+data.save);
+                            showToast('已为您节省'+data.save+'元')
+                            $('#totolfee').text('￥'+(totalPrice-data.save));
+//                                var cardId=null
+                            cardId=data.cardId;
+                            cardCode=data.cardCode;
+                        }
+                    });
+                }
+            });
+        });
+    })
+
+</script>
+

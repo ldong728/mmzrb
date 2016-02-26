@@ -123,10 +123,28 @@
     var d_id=$('#category-select option:selected').val();
     var realPrice=<?php echo (isset($default['price'])? $default['price'] : $default['sale'])?>;//保存在js中的价格
     var number=parseInt($('#number').val());
+    var url='<?php echo 'https://open.weixin.qq.com/connect/oauth2/authorize?'
+    .'appid='.APP_ID
+    .'&redirect_uri='.urlencode('http://'.$_SERVER['HTTP_HOST'].'/'.DOMAIN.'/mobile/controller.php?oauth=1&timeLineShare=1&g_id='.$inf['g_id'])
+    .'&response_type=code&scope=snsapi_base'
+    .'&state=123#wechat_redirect'?>';
 </script>
 <script src="../js/goods-inf.js"></script>
 <?php include 'templates/jssdkIncluder.php'?>
 <script>
+    wx.ready(function() {
+        wx.onMenuShareTimeline({
+            title: '<?php echo $inf['name']?>', // 分享标题
+            link: url, // 分享链接
+            imgUrl: 'http://www.anmiee.com/mmzrb/<?php echo $inf['url']?>', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
 
 </script>
 </body>
