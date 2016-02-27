@@ -22,6 +22,7 @@
     </div>
     <div>
         <h5>订单号：<?php echo $orderId?></h5>
+        <h5>总金额：￥<?php echo $total_fee?></h5>
         <h6>订单状态：<?php echo getOrderStu($orderStu)?></h6>
     </div>
     <a class="orderSettle" id="readyToPay"href="#">付款</a>

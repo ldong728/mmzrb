@@ -31,6 +31,7 @@ if(isset($_SESSION['customerId'])){
             'city'=>' ','area'=>' ');
             $addr=$addrrow;
 ;        }
+        unset($_SESSION['cardCode']);
         include 'view/order.html.php';
         exit;
     }
@@ -84,6 +85,19 @@ if(isset($_SESSION['customerId'])){
             if($readyInsert==null){
                 header('location:index.php');
                 exit;
+            }
+            if(isset($_SESSION['cardCode'])&&$_SESSION['cardCode']!=-1){
+                mylog('hasCard:'.$_SESSION['cardCode']);
+                    $savefeeQuery=pdoQuery('card_record_tbl',null,array('card_code'=>$_SESSION['cardCode'],'consumed'=>'0'),' limit 1');
+                    if($save=$savefeeQuery->fetch()){
+                        include_once '../wechat/cardManager.php';
+                        if(consumeCard($_GET['card'])!=false){
+                            mylog('can consumeCard');
+                            $total_fee-=$save['fee'];
+                            pdoUpdate('card_record_tbl',array('order_id'=>$orderId,'consumed'=>'1'),array('card_code'=>$_GET['card']));
+                        }
+                    }
+                unset($_SESSION['cardCode']);
             }
             pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId'],'total_fee'=>$total_fee));
             pdoBatchInsert('order_detail_tbl', $readyInsert);
@@ -183,7 +197,6 @@ if(isset($_GET['getList'])){
     }
     $query=pdoQuery('(select * from user_list_view order by price asc) p',null,$where,$end);
     include 'view/list.html.php';
-
 
 }
 if(isset($_GET['goodsdetail'])){

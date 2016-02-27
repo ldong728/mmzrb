@@ -37,8 +37,9 @@
 //                    alert('pay succes')
 
                 }else{
-                    alert('false:'+res.err_msg);
+//                    alert('false:'+res.err_msg);
                 }
+                window.location.href='controller.php?customerInf=1';
                 // 支付成功后的回调函数
             }
         });

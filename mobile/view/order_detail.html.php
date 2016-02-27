@@ -79,7 +79,7 @@
                 </span></span></div>
             <?php if($order_inf['stu']==0){
                 echo ' <div class="order_btn">
-                <a class="btn_orange payOrder" href="#">
+                <a class="btn_orange payOrder" id="pay_now" href="#">
                     立即付款
                 </a>
                 <a class="btn_white cansel_btn" oid="976487" href="#">
@@ -91,3 +91,11 @@
         </div>
    </div>
 </body>
+<script>
+    var orderId = '<?php echo $order_inf['id']?>';
+    var orderstu =<?php echo $order_inf['stu']?>;
+    var totalFee=<?php echo $total ?>;
+    $('#pay_now').click(function () {
+        window.location.href = 'controller.php?pay_order=1&order_id=' + orderId + '&order_stu=' + orderstu + '&total_fee='+totalFee;
+    });
+</script>

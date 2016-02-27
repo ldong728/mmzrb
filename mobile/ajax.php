@@ -84,7 +84,6 @@ if(isset($_SESSION['customerId'])){
             $data = getCardDetail($card_id);
             $dataArray = json_decode($data, true);
             $cardType = $dataArray['card']['card_type'];
-
             switch ($cardType) {
                 case 'CASH': {
                     $least_cost = $dataArray['card']['cash']['least_cost'] / 100;
@@ -106,13 +105,12 @@ if(isset($_SESSION['customerId'])){
                 break;
                 }
             }
-//            pdoInsert('card_record_tbl',array('card_code'=>$cardCode,'card_id'=>$card_id,'fee'=>$save),'update');
+            pdoInsert('card_record_tbl',array('card_code'=>$cardCode,'card_id'=>$card_id,'fee'=>$save),'update');
         }
-
+        $_SESSION['cardCode']=$cardCode;
         $return=array('save'=>$save,'cardId'=>$card_id,'cardCode'=>$cardCode);
         $return=json_encode($return);
         echo $return;
-
         exit;
     }
 

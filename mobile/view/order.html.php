@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="stylesheet/order.css"/>
 </head>
 <body>
+
 <div class="wrap">
     <header class="header">
         <a class="back" href="javascript:window.history.go(-1);"></a>
@@ -45,35 +46,37 @@
                 </li>
             <?php endforeach?>
         </ul>
+        <div class="orderCoupon">
+            <h2>优惠券</h2>
+            <div class="chosen chooseOpen card-button">选择优惠券</div>
+        </div>
         <div class="orderOther"style="margin-top: 10px">
             <div class="orderMode">
                 <h3>配送方式：</h3>
                 <div class="chosen chooseOpen">默认快递</div>
                 <div class="chooseArea">
-
-
                 </div>
             </div>
         </div>
         <div class="ordertotal">
             <span class="realPay">总价格：</span>
             <span class="payTotal">
-                <span class="cl_red">￥<?php echo $totalPrice?></span>
+                <span class="cl_red">￥</span><span class="cl_red" id="totalfee"><?php echo $totalPrice?></span>
             </span>
         </div>
         <a class="orderSettle" id="orderConfirm"href="controller.php?orderConfirm=1&addrId=<?php echo $addr['id']?>">订单确认</a>
     </div>
+    <div class="toast"></div>
 </div>
-</body>
 <?php
+include 'templates/jssdkIncluder.php';
 include_once '../wechat/interfaceHandler.php';
 include_once '../wechat/cardsdk.php';
 $card=new card();
 $sign=$card->getSignPackage("DISCOUNT CASH");
 ?>
 <script>
-//    var from ='<?php //echo $from?>//';
-//    var addrId = <?php //echo $addr['id']?>//;
+    var addrId = <?php echo $addr['id']?>;
     var totalPrice =<?php echo $totalPrice ?>;
 </script>
 <script>
@@ -83,9 +86,7 @@ $sign=$card->getSignPackage("DISCOUNT CASH");
     wx.ready(function(){
         $('.card-button').click(function(){
             wx.chooseCard({
-//                shopId: '', // 门店Id
                 cardType: '<?php echo $sign['cardType']?>', // 卡券类型
-//                cardId: '', // 卡券Id
                 timestamp: <?php echo $sign['timestamp']?>, // 卡券签名时间戳
                 nonceStr: '<?php echo $sign['nonceStr']?>', // 卡券签名随机串
                 signType: 'SHA1', // 签名方式，默认'SHA1'
@@ -94,15 +95,15 @@ $sign=$card->getSignPackage("DISCOUNT CASH");
                     var cardList= res.cardList; // 用户选中的卡券列表信息
                     var cardInf=eval('('+cardList+')');
                     $.post('ajax.php?chooseCard=1',{card_id:cardInf[0].card_id,encrypt_code:cardInf[0].encrypt_code,totalPrice:totalPrice},function(data){
+//                        alert(data);
                         data=eval('('+data+')');
-                        $('.card_detail').empty();
+//                        $('.card_detail').empty();
                         if(data.save<0){
                             showToast('此券无法使用')
                         }else{
-                            $('.card-detail').append('节省￥'+data.save);
+//                            $('.card-detail').append('节省￥'+data.save);
                             showToast('已为您节省'+data.save+'元')
-                            $('#totolfee').text('￥'+(totalPrice-data.save));
-//                                var cardId=null
+                            $('#totalfee').text((totalPrice-data.save));
                             cardId=data.cardId;
                             cardCode=data.cardCode;
                         }
@@ -111,6 +112,8 @@ $sign=$card->getSignPackage("DISCOUNT CASH");
             });
         });
     })
-
 </script>
+
+</body>
+
 

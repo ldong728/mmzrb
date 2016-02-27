@@ -35,6 +35,9 @@ body {
 a{
     cursor: pointer
 }
+div {
+    cursor: pointer
+}
 .header .hd_tit{color:#fff; font-size:16px; line-height:50px; margin-left:12%; margin-right:90px; text-align:left;}
 /*顶部搜索框*/
 .header .hd_input{border:none; background-color:#fff; color:#666; height:34px; width:100%; padding:0 12px; line-height:24px; font-size:14px; border-radius:16px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; outline:none; font-family:microsoft yahei;}

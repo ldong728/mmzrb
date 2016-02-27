@@ -106,6 +106,7 @@
         var price=0;
         $('li').each(function(){
             var subTotal=parseFloat($(this).find('.real-price').text())*parseFloat($(this).find('.count').val());
+            subTotal=Math.round(subTotal*100)/100;
             $(this).find('.sub-total-price').empty();
             $(this).find('.sub-total-price').append('¥'+subTotal);
             price+=subTotal;
