@@ -35,9 +35,9 @@ class wechat
             if (!empty($postStr)) {
                 libxml_disable_entity_loader(true);
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $msg['from'] = $postObj->FromUserName;
-                $msg['me'] = $postObj->ToUserName;
-                $msg['content'] = trim($postObj->Content);
+                $msg['from'] = (string)$postObj->FromUserName;
+                $msg['me'] = (string)$postObj->ToUserName;
+                $msg['content'] = (string)trim($postObj->Content);
                 foreach ($postObj->children() as $child) {
                     $msg[$child->getName()] = (string)$child;
                 }

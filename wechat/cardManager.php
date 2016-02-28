@@ -48,7 +48,9 @@ function getCardCode($encryptCode,$check_consume=false){
 function consumeCard($cardCode){
     $sInterFace=new interfaceHandler(WEIXIN_ID);
     $code=array('code'=>$cardCode);
+    mylog(getArrayInf($code));
     $data=$sInterFace->postArrayByCurl('https://api.weixin.qq.com/card/code/get?access_token=ACCESS_TOKEN',$code);
+    mylog($data);
     $data=json_decode($data,true);
     if($data['can_consume']==1){
         $return=$sInterFace->postArrayByCurl('https://api.weixin.qq.com/card/code/consume?access_token=ACCESS_TOKEN',$code);

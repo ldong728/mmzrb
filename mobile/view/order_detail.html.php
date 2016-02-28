@@ -82,13 +82,14 @@
                 <a class="btn_orange payOrder" id="pay_now" href="#">
                     立即付款
                 </a>
-                <a class="btn_white cansel_btn" oid="976487" href="#">
+                <a class="btn_white cansel_btn" id="cancel_order">
                     取消订单
                 </a>
             </div>';
 }?>
 
         </div>
+        <div class="toast"></div>
    </div>
 </body>
 <script>
@@ -96,6 +97,23 @@
     var orderstu =<?php echo $order_inf['stu']?>;
     var totalFee=<?php echo $total ?>;
     $('#pay_now').click(function () {
-        window.location.href = 'controller.php?pay_order=1&order_id=' + orderId + '&order_stu=' + orderstu + '&total_fee='+totalFee;
+        if(orderstu==0){
+            window.location.href = 'controller.php?pay_order=1&order_id=' + orderId + '&order_stu=' + orderstu + '&total_fee='+totalFee;
+        }else{
+
+        }
+    });
+    $('#cancel_order').click(function () {
+        if(orderstu<1){
+            $.post('ajax.php',{cancel_order:1,order_id:orderId,order_stu:orderstu},function(data){
+                if(data==0){
+                    window.location.href = 'controller.php?customerInf=1';
+                }else{
+                    alert('此订单暂时无法删除，请联系客服处理')
+                }
+            });
+
+        }
+
     });
 </script>

@@ -77,7 +77,7 @@ if(isset($_SESSION['customerId'])){
         $total_price=$_POST['totalPrice'];
         include_once '../wechat/cardManager.php';
         $cardinf=getCardCode($encrypt_code);
-//        mylog(getArrayInf($cardinf));
+        mylog(getArrayInf($cardinf));
         $save=-1000;
         $cardCode=$cardinf['card']['card_code'];
         if($cardinf['can_consume']==1) {
@@ -113,6 +113,21 @@ if(isset($_SESSION['customerId'])){
         echo $return;
         exit;
     }
+    if(isset($_POST['cancel_order'])){
+        if($_POST['order_stu']==0){
+            pdoDelete('order_tbl',array('id'=>$_POST['order_id']));
+            pdoDelete('order_detail_tbl',array('o_id'=>$_POST['order_id']));
+            echo 0;
+            exit;
+        }
+        if($_POST['order_stu']==1){
+            echo 1;
+            exit;
+        }
+        echo -1;
+        exit;
+    }
+
 
 
 }

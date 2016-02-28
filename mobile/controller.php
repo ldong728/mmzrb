@@ -87,14 +87,15 @@ if(isset($_SESSION['customerId'])){
                 exit;
             }
             if(isset($_SESSION['cardCode'])&&$_SESSION['cardCode']!=-1){
-                mylog('hasCard:'.$_SESSION['cardCode']);
+//                mylog('hasCard:'.$_SESSION['cardCode']);
                     $savefeeQuery=pdoQuery('card_record_tbl',null,array('card_code'=>$_SESSION['cardCode'],'consumed'=>'0'),' limit 1');
                     if($save=$savefeeQuery->fetch()){
                         include_once '../wechat/cardManager.php';
-                        if(consumeCard($_GET['card'])!=false){
-                            mylog('can consumeCard');
+                        if(consumeCard($_SESSION['cardCode'])!=false){
                             $total_fee-=$save['fee'];
-                            pdoUpdate('card_record_tbl',array('order_id'=>$orderId,'consumed'=>'1'),array('card_code'=>$_GET['card']));
+                            pdoUpdate('card_record_tbl',array('order_id'=>$orderId,'consumed'=>'1'),array('card_code'=>$_SESSION['cardCode']));
+                        }else{
+                            mylog('consumeError');
                         }
                     }
                 unset($_SESSION['cardCode']);
