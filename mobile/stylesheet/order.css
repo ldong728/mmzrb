@@ -262,7 +262,7 @@ h3.title {
 }
 
 .orderComfirm .orderMode .chosen.chooseOpen {
-    background: url(images/icon-bottom.png) no-repeat scroll 0 0;
+    /*background: url(images/icon-bottom.png) no-repeat scroll 0 0;*/
     background-size: 14px 10px;
     background-position: 98% 50%;
     padding-right: 30px;
@@ -421,8 +421,8 @@ h3.title {
 }
 
 .orderComfirm .orderOther {
-    width: 94%;
-    padding: 0 3%;
+    /*width: 94%;*/
+    /*padding: 0 3%;*/
     border-bottom: 1px solid #ccc;
     background-color: #fff;
     position: relative;

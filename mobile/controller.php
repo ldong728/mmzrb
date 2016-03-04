@@ -100,6 +100,7 @@ if(isset($_SESSION['customerId'])){
                     }
                 unset($_SESSION['cardCode']);
             }
+//            if(isset())
             pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId'],'total_fee'=>$total_fee));
             pdoBatchInsert('order_detail_tbl', $readyInsert);
             pdoDelete('cart_tbl', array('c_id' => $_SESSION['customerId']));

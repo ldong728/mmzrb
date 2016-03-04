@@ -52,10 +52,10 @@
         </div>
         <div class="orderOther"style="margin-top: 10px">
             <div class="orderMode">
-                <h3>配送方式：</h3>
-                <div class="chosen chooseOpen">默认快递</div>
-                <div class="chooseArea">
-                </div>
+                <h3>运费</h3>
+                <div class="chosen">默认快递</div>
+<!--                <div class="chooseArea">-->
+<!--                </div>-->
             </div>
         </div>
         <div class="ordertotal">

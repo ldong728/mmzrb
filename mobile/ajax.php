@@ -107,7 +107,9 @@ if(isset($_SESSION['customerId'])){
             }
             pdoInsert('card_record_tbl',array('card_code'=>$cardCode,'card_id'=>$card_id,'fee'=>$save),'update');
         }
-        $_SESSION['cardCode']=$cardCode;
+        if($save>0){
+            $_SESSION['cardCode']=$cardCode;
+        }
         $return=array('save'=>$save,'cardId'=>$card_id,'cardCode'=>$cardCode);
         $return=json_encode($return);
         echo $return;
