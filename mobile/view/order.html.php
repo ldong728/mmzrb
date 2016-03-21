@@ -52,16 +52,14 @@
         </div>
         <div class="orderOther"style="margin-top: 10px">
             <div class="orderMode">
-                <h3>运费</h3>
+                <h3>运费￥<?php echo $expressPrice ?></h3>
                 <div class="chosen">默认快递</div>
-<!--                <div class="chooseArea">-->
-<!--                </div>-->
             </div>
         </div>
         <div class="ordertotal">
             <span class="realPay">总价格：</span>
             <span class="payTotal">
-                <span class="cl_red">￥</span><span class="cl_red" id="totalfee"><?php echo $totalPrice?></span>
+                <span class="cl_red">￥</span><span class="cl_red" id="totalfee"><?php echo ($totalPrice+$expressPrice)?></span>
             </span>
         </div>
         <a class="orderSettle" id="orderConfirm"href="controller.php?orderConfirm=1&addrId=<?php echo $addr['id']?>">订单确认</a>

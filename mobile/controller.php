@@ -26,11 +26,18 @@ if(isset($_SESSION['customerId'])){
 
         if($addrrow=$addrQuery->fetch()){
            $addr=$addrrow;
+
         }else{
             $addrrow=array('id'=>-1,'name'=>'','phone'=>'','address'=>'点击设置收货地址','province'=>' ',
             'city'=>' ','area'=>' ');
             $addr=$addrrow;
 ;        }
+        if($addr['id']!=-1){
+            $expressPriceList=getExpressPrice($addr['id']);
+            $expressPrice=$expressPriceList['base_price'];
+        }else{
+            $expressPrice='0';
+        }
         unset($_SESSION['cardCode']);
         include 'view/order.html.php';
         exit;
@@ -100,8 +107,9 @@ if(isset($_SESSION['customerId'])){
                     }
                 unset($_SESSION['cardCode']);
             }
-//            if(isset())
-            pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId'],'total_fee'=>$total_fee));
+            $expList=getExpressPrice($_GET['addrId']);
+            $expressPrice=$expList['base_price'];
+            pdoInsert('order_tbl', array('id' => $orderId, 'c_id' => $_SESSION['customerId'], 'a_id' => $_GET['addrId'],'express_price'=>$expressPrice,'total_fee'=>$total_fee+$expressPrice));
             pdoBatchInsert('order_detail_tbl', $readyInsert);
             pdoDelete('cart_tbl', array('c_id' => $_SESSION['customerId']));
             $orderStu = 0;

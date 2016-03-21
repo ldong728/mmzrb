@@ -85,6 +85,14 @@ function getArea($pro,$city,$area){
         }
     }
 }
+function getExpressPrice($addr_id){
+    $addrQuery=pdoQuery('address_tbl',array('pro_id','city_id','area_id'),array('id'=>$addr_id),' limit 1');
+    $addrId=$addrQuery->fetch();
+    $priceQuery=pdoQuery('express_price_tbl',null, array('pro_id'=>$addrId['pro_id']),' limit 1');
+    $expressPriceList=$priceQuery->fetch();
+//    $expressPrice=$expressPriceList['base_price'];
+    return $expressPriceList;
+}
 function getConfig($path){
     $data=file_get_contents($path);
     return json_decode($data,true);
