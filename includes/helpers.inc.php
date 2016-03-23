@@ -1,5 +1,5 @@
 <?php
-define('DEBUG',true);
+define('DEBUG',false);
 //$province=null;
 //$city=null;
 //$area=null;

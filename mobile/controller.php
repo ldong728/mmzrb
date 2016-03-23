@@ -207,7 +207,10 @@ if(isset($_GET['getList'])){
     }
     $query=pdoQuery('(select * from user_list_view order by price asc) p',null,$where,$end);
     include 'view/list.html.php';
-
+}
+if(isset($_POST['search'])){
+    $query=pdoQuery('(select * from user_list_view order by price asc) p',null,null, ' where name like "%'.$_GET['name'].'%" group by g_id');
+    include 'view/list.html.php';
 }
 if(isset($_GET['goodsdetail'])){
     if($_GET['g_id']==null){

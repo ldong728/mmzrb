@@ -7,16 +7,21 @@
     <script src="../js/mobile-index.js"></script>
 </head>
 
+
 <body>
 <div class="wrap">
     <header>
         <div class="headerContainer">
             <a href="" class="logo"></a>
 
-            <form class="searchBox"action="controller.php?getList=1"method="get">
-                <input class="main_input" type="text" id="key-word"placeholder="输入关键字">
-                <input class="search_btn" id="search-button"type="button">
-            </form>
+<!--            <form class="searchBox"action="controller.php"method="post">-->
+            <div class="searchBox">
+<!--                <input type="hidden"name="search"value="1"/>-->
+<!--                <input class="main_input" type="text" id="key-word"placeholder="输入关键字"onkeypress="if(event.keyCode == 13) return false">-->
+                <input class="main_input" type="text" id="key-word"placeholder="输入关键字"onkeypress="searchGoods(event)">
+                <input class="search_btn" id="search-button"type="button"onclick="searchGoods({keyCode:13})">
+            </div>
+<!--            </form>-->
             <a href="controller.php?getSort=1" class="sort"></a>
         </div>
         <script src="../js/head.js"></script>
@@ -170,12 +175,19 @@
             if(2==data){
                 alert('当前无在线客服，请稍候再试');
             }
-
         })
-
-//        alert('haha');
-
     });
 </script>
+<script>
+    function searchGoods(event){
+        if(13==event.keyCode){
+            var name=$('#key-word').val();
+            window.location='controller.php?getList=1&name='+name;
+            return false;
+        }
+    }
+
+</script>
+
 </body>
 
