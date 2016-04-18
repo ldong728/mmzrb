@@ -22,6 +22,7 @@ $signPackage = $jssdk->GetSignPackage();
             'uploadImage',
             'chooseWXPay',
             'onMenuShareTimeline',
+            'onMenuShareAppMessage',
             'chooseCard'
         ]
     });

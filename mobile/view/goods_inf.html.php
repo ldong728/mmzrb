@@ -144,6 +144,18 @@
                 // 用户取消分享后执行的回调函数
             }
         });
+        wx.onMenuShareAppMessage({
+            title: 'anmiee海外购精心推荐', // 分享标题
+            desc: '<?php echo $inf['name'] ?> ', // 分享描述
+            link: url, // 分享链接
+            imgUrl: 'http://www.anmiee.com/mmzrb/<?php echo $inf['url']?>', // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
     });
 
 </script>
